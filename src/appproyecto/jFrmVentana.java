@@ -11,8 +11,8 @@ public class jFrmVentana extends javax.swing.JFrame {
     public jFrmVentana() {
         imags = new ImageFunctions();
         initComponents();
-        jLblMainCharacter.setLocation(24, 364);
-        principal = new MainCharacter(jLblMainCharacter.getX(), jLblMainCharacter.getY(), 180,120);
+        jLblMainCharacter.setBounds(24,364,180,120);
+        principal = new MainCharacter(jLblMainCharacter.getX(), jLblMainCharacter.getY(), jLblMainCharacter.getWidth(),jLblMainCharacter.getHeight());
         jLblMainCharacter.setIcon(principal.getIcon());
     }
 
@@ -34,23 +34,9 @@ public class jFrmVentana extends javax.swing.JFrame {
                 formKeyPressed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jLblMainCharacter)
-                .addContainerGap(790, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
-                .addComponent(jLblMainCharacter)
-                .addGap(191, 191, 191))
-        );
+        getContentPane().setLayout(null);
+        getContentPane().add(jLblMainCharacter);
+        jLblMainCharacter.setBounds(24, 364, 0, 0);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -61,7 +47,7 @@ public class jFrmVentana extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         char key = evt.getKeyChar();
-        if(key == 'W' || key == 'w' ){
+        if(key == 'D' || key == 'd' ){
            principal.moveRigth();
            jLblMainCharacter.setLocation(principal.getPositionX(), principal.getPositionY());
            jLblMainCharacter.setIcon(principal.getIcon());
