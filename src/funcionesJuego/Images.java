@@ -12,7 +12,7 @@ public class Images {
         mainCharacterImag();
     }
     
-    public void mainCharacterImag(){
+    private void mainCharacterImag(){
         String direccion = null;
         for(int i = 0; i<main_Character_Walking.length;i++){
             direccion = ".\\src\\funcionesJuego\\Principal\\Walking\\Satyr_01_Walking_";

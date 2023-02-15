@@ -2,6 +2,7 @@
 package appproyecto;
 import personajes.MainCharacter;
 import funcionesJuego.ImageFunctions;
+import static java.awt.ComponentOrientation.RIGHT_TO_LEFT;
 
 public class jFrmVentana extends javax.swing.JFrame {
 
