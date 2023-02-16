@@ -25,7 +25,7 @@ public class MainCharacter {
         life = 100;
         stamina = 100;
         sequence = 0;
-        main_Image = images.mcWalking(0, width, height);
+        main_Image = images.mcWalking(0, width, height,"");
     }
     
     public ImageIcon getIcon(){
@@ -59,6 +59,12 @@ public class MainCharacter {
     public void moveRigth(){
         positionX += 10;
         sequence = (sequence<17?sequence + 1:0);
-        main_Image = images.mcWalking(sequence, width, height);
+        main_Image = images.mcWalking(sequence, width, height,"Walking_Right");
+    }
+    
+    public void moveLeft(){
+        positionX -= 10;
+        sequence = (sequence<17?sequence + 1:0);
+        main_Image = images.mcWalking(sequence, width, height,"Walking_Left");
     }
 }
