@@ -7,6 +7,8 @@ public class jFrmVentana extends javax.swing.JFrame {
 
     private MainCharacter principal;
     private ImageFunctions images;
+    private MainCharacter principalCopy;
+    private Thread2 thread2;
     
     public jFrmVentana() {
         initComponents();
@@ -14,6 +16,9 @@ public class jFrmVentana extends javax.swing.JFrame {
         jLblMainCharacter.setBounds(24,364,180,120);
         principal = new MainCharacter(jLblMainCharacter.getX(), jLblMainCharacter.getY(), jLblMainCharacter.getWidth(),jLblMainCharacter.getHeight());
         jLblMainCharacter.setIcon(principal.getIcon());
+        principalCopy = new MainCharacter();
+        clonarObject();
+        thread2 = new Thread2(principal);
     }
 
     
@@ -44,10 +49,42 @@ public class jFrmVentana extends javax.swing.JFrame {
         if(key == 'A' || key == 'a' ){
            principal.moveLeft();
         }
-         jLblMainCharacter.setLocation(principal.getPositionX(), principal.getPositionY());
-         jLblMainCharacter.setIcon(principal.getIcon());
+        if(key == 'W' || key == 'w' ){
+           thread2.start();
+        }
     }//GEN-LAST:event_formKeyPressed
 
+    public void setjLblMain_Character(){
+        jLblMainCharacter.setLocation(principal.getPositionX(), principal.getPositionY());
+        jLblMainCharacter.setIcon(principal.getIcon());
+        if(!compareObject()){
+            getContentPane().update(getContentPane().getGraphics());
+            clonarObject();
+        }
+    }
+    
+    private void clonarObject(){
+        principalCopy.setPositionX(principal.getPositionX());
+        principalCopy.setPositionY(principal.getPositionY());
+        principalCopy.setSequence(principal.getSequence());
+        principalCopy.setIcon(principal.getIcon());
+        principalCopy.setDirection(principal.getDirection());
+    }
+    
+    private boolean compareObject(){
+        if(
+            principalCopy.getPositionX() == principal.getPositionX()&&
+            principalCopy.getPositionY() == principal.getPositionY()&&
+            principalCopy.getSequence() == principal.getSequence() &&
+            Character.compare(principalCopy.getDirection(),principal.getDirection()) == 0
+           ){
+                return true;
+            }
+        else{
+            return false;
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLblMainCharacter;
     // End of variables declaration//GEN-END:variables

@@ -15,7 +15,22 @@ public class MainCharacter {
     private ImageIcon main_Image;
     private int sequence;
     private ImageFunctions images;
+    private char direccion;
+    private int sequenceJump;
     
+    public MainCharacter(){
+        images = new ImageFunctions();
+        positionX = 0;
+        positionY = 0;
+        this.height = 0;
+        this.width = 0;
+        life = 0;
+        stamina = 0;
+        sequence = 0;
+        main_Image = null;
+        direccion = ' ';
+        sequenceJump = 0;
+    }
     public MainCharacter(int X, int Y, int width, int height){
         images = new ImageFunctions();
         positionX = X;
@@ -26,10 +41,32 @@ public class MainCharacter {
         stamina = 100;
         sequence = 0;
         main_Image = images.mcWalking(0, width, height,"");
+        direccion = 'R';
+        sequenceJump = 5;
     }
     
     public ImageIcon getIcon(){
         return main_Image;
+    }
+    
+    public void setSequenceJump(int sequence){
+        this.sequenceJump = sequence;
+    }
+    
+    public int getSequenceJump(){
+        return sequenceJump;
+    }
+    
+    public void setDirection(char direction){
+        this.direccion = direction;
+    }
+    
+    public char getDirection(){
+        return direccion;
+    }
+    
+    public void setIcon(ImageIcon imag){
+        main_Image = imag;
     }
     
     public int getPositionX(){
@@ -60,11 +97,39 @@ public class MainCharacter {
         positionX += 10;
         sequence = (sequence<17?sequence + 1:0);
         main_Image = images.mcWalking(sequence, width, height,"Walking_Right");
+        direccion = 'R';
     }
     
     public void moveLeft(){
         positionX -= 10;
         sequence = (sequence<17?sequence + 1:0);
         main_Image = images.mcWalking(sequence, width, height,"Walking_Left");
+        direccion = 'L';
     }
+    
+    public void Jumping() {
+        String action = Character.compare(direccion,'R')==0?"Jumping_Right":"Jumping_Left";
+        if(sequenceJump < 1){
+            main_Image = images.mcWalking(sequenceJump, width, height,action);
+        }
+        else{
+            positionY -= 10;
+            main_Image = images.mcWalking(sequenceJump--, width, height,action);
+            pause(75);
+            Jumping();
+            sequenceJump += 1;
+            main_Image = images.mcWalking(sequenceJump, width, height,action);
+            positionY += 10;
+            pause(75);
+        }
+    }
+    
+    public static void pause(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+    }
+    
 }
