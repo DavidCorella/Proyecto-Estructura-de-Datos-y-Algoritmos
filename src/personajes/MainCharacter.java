@@ -17,6 +17,8 @@ public class MainCharacter {
     private ImageFunctions images;
     private char direccion;
     private int sequenceJump;
+    private boolean isJumping;
+    private boolean isAttacking;
     
     public MainCharacter(){
         images = new ImageFunctions();
@@ -30,6 +32,8 @@ public class MainCharacter {
         main_Image = null;
         direccion = ' ';
         sequenceJump = 0;
+        isJumping = false;
+        isAttacking = false;
     }
     public MainCharacter(int X, int Y, int width, int height){
         images = new ImageFunctions();
@@ -47,6 +51,14 @@ public class MainCharacter {
     
     public ImageIcon getIcon(){
         return main_Image;
+    }
+    
+    public void setisAttacking(boolean isAttacking){
+        this.isAttacking = isAttacking;
+    }
+    
+    public boolean getisAttacking(){
+        return isAttacking;
     }
     
     public void setSequenceJump(int sequence){
@@ -94,20 +106,21 @@ public class MainCharacter {
     }
     
     public void moveRigth(){
-        positionX += 10;
+        positionX += (isJumping ? 25 : 10);
         sequence = (sequence<17?sequence + 1:0);
         main_Image = images.mcWalking(sequence, width, height,"Walking_Right");
         direccion = 'R';
     }
     
     public void moveLeft(){
-        positionX -= 10;
+        positionX -= (isJumping ? 20 : 10);;
         sequence = (sequence<17?sequence + 1:0);
         main_Image = images.mcWalking(sequence, width, height,"Walking_Left");
         direccion = 'L';
     }
     
-    public void Jumping() {
+    public void jumping() {
+        isJumping = true;
         String action = Character.compare(direccion,'R')==0?"Jumping_Right":"Jumping_Left";
         if(sequenceJump < 1){
             main_Image = images.mcWalking(sequenceJump, width, height,action);
@@ -115,12 +128,25 @@ public class MainCharacter {
         else{
             positionY -= 10;
             main_Image = images.mcWalking(sequenceJump--, width, height,action);
-            pause(75);
-            Jumping();
-            sequenceJump += 1;
-            main_Image = images.mcWalking(sequenceJump, width, height,action);
+            pause(120);
+            jumping();
+            main_Image = images.mcWalking(sequenceJump++, width, height,action);
             positionY += 10;
-            pause(75);
+            pause(120);
+        }
+        isJumping = false;
+        action = Character.compare(direccion,'R')==0?"Walking_Right":"Walking_Left";
+        sequence = 0;
+        main_Image = images.mcWalking(sequence, width, height,action);
+    }
+    
+    public void attacking(){
+        String action = (Character.compare(direccion, 'R')==0 ? "Attacking_Right" : "Attacking_Left");
+        for(int i = 0; i < 12 ; i++){
+            isAttacking = true;
+            main_Image = images.mcWalking(i, width, height,action);
+            pause(100);
+            isAttacking = false;
         }
     }
     

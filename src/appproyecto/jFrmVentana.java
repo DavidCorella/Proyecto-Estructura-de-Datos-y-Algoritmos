@@ -2,6 +2,7 @@
 package appproyecto;
 import personajes.MainCharacter;
 import funcionesJuego.ImageFunctions;
+import javax.swing.SwingUtilities;
 
 public class jFrmVentana extends javax.swing.JFrame {
 
@@ -18,7 +19,6 @@ public class jFrmVentana extends javax.swing.JFrame {
         jLblMainCharacter.setIcon(principal.getIcon());
         principalCopy = new MainCharacter();
         clonarObject();
-        thread2 = new Thread2(principal);
     }
 
     
@@ -50,15 +50,20 @@ public class jFrmVentana extends javax.swing.JFrame {
            principal.moveLeft();
         }
         if(key == 'W' || key == 'w' ){
-           thread2.start();
+           thread2 = new Thread2(principal);
+           thread2.start();   
         }
+         if(key == 'F' || key == 'f' ){
+           principal.attacking();
+        }
+        
     }//GEN-LAST:event_formKeyPressed
 
     public void setjLblMain_Character(){
-        jLblMainCharacter.setLocation(principal.getPositionX(), principal.getPositionY());
         jLblMainCharacter.setIcon(principal.getIcon());
         if(!compareObject()){
-            getContentPane().update(getContentPane().getGraphics());
+            jLblMainCharacter.setLocation(principal.getPositionX(), principal.getPositionY());     
+            SwingUtilities.updateComponentTreeUI(this);
             clonarObject();
         }
     }
@@ -69,15 +74,11 @@ public class jFrmVentana extends javax.swing.JFrame {
         principalCopy.setSequence(principal.getSequence());
         principalCopy.setIcon(principal.getIcon());
         principalCopy.setDirection(principal.getDirection());
+        principalCopy.setisAttacking(principal.getisAttacking());
     }
     
     private boolean compareObject(){
-        if(
-            principalCopy.getPositionX() == principal.getPositionX()&&
-            principalCopy.getPositionY() == principal.getPositionY()&&
-            principalCopy.getSequence() == principal.getSequence() &&
-            Character.compare(principalCopy.getDirection(),principal.getDirection()) == 0
-           ){
+        if( principal.getIcon().getImage() == principalCopy.getIcon().getImage()){
                 return true;
             }
         else{
