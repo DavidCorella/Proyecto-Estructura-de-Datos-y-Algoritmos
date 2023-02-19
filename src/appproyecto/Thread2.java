@@ -21,9 +21,13 @@ public class Thread2 extends Thread {
         switch(principal.getisAction()){
             case "isAttacking":
                 principal.attacking();
+                principal.setisAction("Idle");
+                principal.idle();
                 break;
             case "isJumping":
                 principal.jumping();
+                principal.setisAction("Idle");
+                principal.idle();
                 break;
             default: principal.idle();
         }

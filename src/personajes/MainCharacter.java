@@ -45,7 +45,7 @@ public class MainCharacter {
         main_Image = images.mcWalking(0, width, height,"");
         direccion = 'R';
         sequenceJump = 5;
-        isAction = "Idle";
+        isAction = null;
     }
     
     public String getisAction(){
@@ -146,6 +146,7 @@ public class MainCharacter {
             main_Image = images.mcWalking(i, width, height,action);
             pause(75);
         }
+
         
     }
     

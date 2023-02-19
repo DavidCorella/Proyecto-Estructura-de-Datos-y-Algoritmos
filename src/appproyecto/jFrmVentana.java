@@ -18,7 +18,10 @@ public class jFrmVentana extends javax.swing.JFrame {
         principal = new MainCharacter(jLblMainCharacter.getX(), jLblMainCharacter.getY(), jLblMainCharacter.getWidth(),jLblMainCharacter.getHeight());
         jLblMainCharacter.setIcon(principal.getIcon());
         principalCopy = new MainCharacter();
+        principal.setisAction("Idle");
         clonarObject();
+        thread2 = new Thread2(principal);
+        thread2.start();
         
     }
 
@@ -57,22 +60,33 @@ public class jFrmVentana extends javax.swing.JFrame {
             principal.setisAction("Walking");
             principal.moveLeft();
         }
+        if(key == 'F' || key == 'f' ){
+            principal.setisAction("isAttacking");
+            thread2 = new Thread2(principal);
+            thread2.start();
+        }
         if(key == 'W' || key == 'w' ){
             principal.setisAction("isJumping");
             thread2 = new Thread2(principal);
-            thread2.start();   
-        }
-         if(key == 'F' || key == 'f' ){
-             principal.setisAction("isAttacking");
-             
+            thread2.start();
         }
         
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-        principal.setisAction("Idle");
-        thread2 = new Thread2(principal);
-        thread2.start();
+        char key = evt.getKeyChar();
+        if(key == 'A' || key == 'a' ){
+            principal.setisAction("Idle");
+            thread2 = new Thread2(principal);
+            thread2.start();       
+        }
+        if(key == 'D' || key == 'd' ){
+            principal.setisAction("Idle");
+            thread2 = new Thread2(principal);
+            thread2.start();  
+        }
+        
+        
     }//GEN-LAST:event_formKeyReleased
 
     public void setjLblMain_Character(){
