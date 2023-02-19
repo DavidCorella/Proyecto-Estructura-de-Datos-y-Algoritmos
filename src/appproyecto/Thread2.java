@@ -14,15 +14,18 @@ public class Thread2 extends Thread {
     
  
     public void run(){
-        executeAction();
-            
+        executeAction();       
     }
     
     public void executeAction(){
-        if(principal.getisAction().equals("isAttacking")){
-            principal.attacking();
-        }else if (principal.getisAction().equals("isJumping")){
-            principal.jumping();
+        switch(principal.getisAction()){
+            case "isAttacking":
+                principal.attacking();
+                break;
+            case "isJumping":
+                principal.jumping();
+                break;
+            default: principal.idle();
         }
     }
 }

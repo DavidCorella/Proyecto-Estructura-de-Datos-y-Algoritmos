@@ -45,7 +45,7 @@ public class MainCharacter {
         main_Image = images.mcWalking(0, width, height,"");
         direccion = 'R';
         sequenceJump = 5;
-        isAction = "idle";
+        isAction = "Idle";
     }
     
     public String getisAction(){
@@ -133,8 +133,7 @@ public class MainCharacter {
             positionY += 10;
             pause(120);
         }
-        if(sequenceJump == 5){
-            isAction = "idle";
+        if(sequenceJump == 6){
             action = Character.compare(direccion,'R')==0?"Walking_Right":"Walking_Left";
             sequence = 0;
             main_Image = images.mcWalking(sequence, width, height,action);
@@ -147,7 +146,17 @@ public class MainCharacter {
             main_Image = images.mcWalking(i, width, height,action);
             pause(75);
         }
-        isAction = "Idle";
+        
+    }
+    
+    public void idle(){
+        int i = 0;
+        String action = (Character.compare(direccion, 'R')==0 ? "Idle_Right" : "Idle_Left");
+        while(isAction.equals("Idle")){  
+            main_Image = images.mcWalking(i, width, height,action);
+            pause(100);
+            i = (i<11?i+1:0);
+        }
     }
     
     public static void pause(int ms) {

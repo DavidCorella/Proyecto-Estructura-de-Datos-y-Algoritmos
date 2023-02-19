@@ -11,6 +11,8 @@ public class Images {
     private ImageIcon main_Character_Jumping_Right [] = new ImageIcon[6];
     private ImageIcon main_Character_Attacking_Left [] = new ImageIcon[12];
     private ImageIcon main_Character_Attacking_Right [] = new ImageIcon[12];
+    private ImageIcon main_Character_Idle_Right [] = new ImageIcon[12];
+    private ImageIcon main_Character_Idle_Left [] = new ImageIcon[12];
         
     public void mainCharacterImag(){
         String path = null;
@@ -38,6 +40,14 @@ public class Images {
             path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Attacking\\Satyr_01_Attacking_";
             main_Character_Attacking_Left[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
         }
+        for(int i = 0; i<main_Character_Idle_Left.length;i++){
+            path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Idle\\Satyr_01_Idle_";
+            main_Character_Idle_Left[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+        }
+        for(int i = 0; i<main_Character_Idle_Right.length;i++){
+            path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Idle\\Satyr_01_Idle_";
+            main_Character_Idle_Right[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+        }
     }
     
     public ImageIcon getMain_Character_Walking(int i, String action){
@@ -60,6 +70,12 @@ public class Images {
                 break;
             case "Attacking_Right":
                 retorno = main_Character_Attacking_Right[i];
+                break;
+             case "Idle_Right":
+                retorno = main_Character_Idle_Right[i];
+                break;
+            case "Idle_Left":
+                retorno = main_Character_Idle_Left[i];
                 break;
             default: 
                 retorno = main_Character_Walking_Right[i];
