@@ -11,7 +11,7 @@ public class AppProyecto {
         ventana.setSize(1000, 500);
         ventana.setLocationRelativeTo(null);
         Thread1 thread1 = new Thread1(ventana);
-        thread1.run();
+        thread1.start();
         
     }
     

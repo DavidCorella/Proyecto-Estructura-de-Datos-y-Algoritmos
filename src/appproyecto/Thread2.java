@@ -12,10 +12,17 @@ public class Thread2 extends Thread {
         this.principal = principal;
     }
     
-    @Override
+ 
     public void run(){
-       
-            principal.jumping();
+        executeAction();
             
+    }
+    
+    public void executeAction(){
+        if(principal.getisAction().equals("isAttacking")){
+            principal.attacking();
+        }else if (principal.getisAction().equals("isJumping")){
+            principal.jumping();
+        }
     }
 }

@@ -14,8 +14,7 @@ public class ImageFunctions {
         images.mainCharacterImag();
     }
     public ImageIcon mcWalking(int sequence, int width, int height, String action){
-        Image img = images.getMain_Character_Walking(sequence,action).getImage();
-        ImageIcon icon = new ImageIcon(img.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(images.getMain_Character_Walking(sequence,action).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
         return icon;
     }
     

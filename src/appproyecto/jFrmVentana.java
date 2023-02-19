@@ -50,18 +50,22 @@ public class jFrmVentana extends javax.swing.JFrame {
            principal.moveLeft();
         }
         if(key == 'W' || key == 'w' ){
-           thread2 = new Thread2(principal);
-           thread2.start();   
+            principal.setisAction("isJumping");
+            thread2 = new Thread2(principal);
+            thread2.start();   
         }
          if(key == 'F' || key == 'f' ){
-           principal.attacking();
+             principal.setisAction("isAttacking");
+             thread2 = new Thread2(principal);
+             thread2.start(); 
         }
         
     }//GEN-LAST:event_formKeyPressed
 
     public void setjLblMain_Character(){
-        jLblMainCharacter.setIcon(principal.getIcon());
-        if(!compareObject()){
+        
+        if(!(principal.getIcon().getImage() == principalCopy.getIcon().getImage())){
+            jLblMainCharacter.setIcon(principal.getIcon());
             jLblMainCharacter.setLocation(principal.getPositionX(), principal.getPositionY());     
             SwingUtilities.updateComponentTreeUI(this);
             clonarObject();
@@ -74,17 +78,9 @@ public class jFrmVentana extends javax.swing.JFrame {
         principalCopy.setSequence(principal.getSequence());
         principalCopy.setIcon(principal.getIcon());
         principalCopy.setDirection(principal.getDirection());
-        principalCopy.setisAttacking(principal.getisAttacking());
+        principalCopy.setisAction(principal.getisAction());
     }
     
-    private boolean compareObject(){
-        if( principal.getIcon().getImage() == principalCopy.getIcon().getImage()){
-                return true;
-            }
-        else{
-            return false;
-        }
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLblMainCharacter;
