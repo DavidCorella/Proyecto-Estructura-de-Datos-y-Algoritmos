@@ -4,86 +4,90 @@ package funcionesJuego;
 import javax.swing.ImageIcon;
 
 public class Images {
-    
-    private ImageIcon main_Character_Walking_Right [] = new ImageIcon[18];
-    private ImageIcon main_Character_Walking_Left [] = new ImageIcon[18];
-    private ImageIcon main_Character_Jumping_Left [] = new ImageIcon[6];
-    private ImageIcon main_Character_Jumping_Right [] = new ImageIcon[6];
-    private ImageIcon main_Character_Attacking_Left [] = new ImageIcon[12];
-    private ImageIcon main_Character_Attacking_Right [] = new ImageIcon[12];
-    private ImageIcon main_Character_Idle_Right [] = new ImageIcon[12];
-    private ImageIcon main_Character_Idle_Left [] = new ImageIcon[12];
-        
-    public void mainCharacterImag(){
-        String path = null;
-        for(int i = 0; i<main_Character_Walking_Right.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Walking\\Satyr_01_Walking_";
-            main_Character_Walking_Right[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-        for(int i = 0; i<main_Character_Walking_Left.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Walking\\Satyr_01_Walking_";
-            main_Character_Walking_Left[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-        for(int i = 0; i<main_Character_Jumping_Left.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Jump_Loop\\Satyr_01_Jump_Loop_";
-            main_Character_Jumping_Left[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-        for(int i = 0; i<main_Character_Jumping_Right.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Jump_Loop\\Satyr_01_Jump_Loop_";
-            main_Character_Jumping_Right[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-        for(int i = 0; i<main_Character_Attacking_Right.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Attacking\\Satyr_01_Attacking_";
-            main_Character_Attacking_Right[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-        for(int i = 0; i<main_Character_Attacking_Left.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Attacking\\Satyr_01_Attacking_";
-            main_Character_Attacking_Left[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-        for(int i = 0; i<main_Character_Idle_Left.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Idle\\Satyr_01_Idle_";
-            main_Character_Idle_Left[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-        for(int i = 0; i<main_Character_Idle_Right.length;i++){
-            path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Idle\\Satyr_01_Idle_";
-            main_Character_Idle_Right[i] = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-        }
-    }
-    
-    public ImageIcon getMain_Character_Walking(int i, String action){
+                
+    public ImageIcon getMain_Character_Walking(int i, String action, String type){
         ImageIcon retorno = null;
-        switch(action){
-            case "Walking_Right":
-                retorno = main_Character_Walking_Right[i];
-                break;
-            case "Walking_Left": 
-                retorno = main_Character_Walking_Left[i];
-                break;
-            case "Jumping_Right":
-                retorno = main_Character_Jumping_Right[i];
-                break;
-            case "Jumping_Left":
-                retorno = main_Character_Jumping_Left[i];
-                break;
-            case "Attacking_Left":
-                retorno = main_Character_Attacking_Left[i];
-                break;
-            case "Attacking_Right":
-                retorno = main_Character_Attacking_Right[i];
-                break;
-             case "Idle_Right":
-                retorno = main_Character_Idle_Right[i];
-                break;
-            case "Idle_Left":
-                retorno = main_Character_Idle_Left[i];
-                break;
-            default: 
-                retorno = main_Character_Walking_Right[i];
-                break;
+        String path = null;
+        if(type.equals("Principal")){
+            switch(action){
+                case "Walking_Right":
+                    path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Walking\\Satyr_01_Walking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Walking_Left": 
+                    path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Walking\\Satyr_01_Walking_";
+                    retorno =  new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Jumping_Right":
+                    path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Jump_Loop\\Satyr_01_Jump_Loop_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Jumping_Left":
+                    path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Jump_Loop\\Satyr_01_Jump_Loop_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Attacking_Left":
+                    path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Attacking\\Satyr_01_Attacking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Attacking_Right":
+                    path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Attacking\\Satyr_01_Attacking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Idle_Right":
+                    path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Idle\\Satyr_01_Idle_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Idle_Left":
+                    path = ".\\src\\funcionesJuego\\Principal\\Izquierda\\Idle\\Satyr_01_Idle_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                default: 
+                    path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Walking\\Satyr_01_Walking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+            } 
+        }else{
+            switch(action){
+                case "Walking_Right":
+                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Walking\\Minotaur_03_Walking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Walking_Left": 
+                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Walking\\Minotaur_03_Walking_";
+                    retorno =  new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Jumping_Right":
+                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Jump_Loop\\Minotaur_03_Jump_Loop_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Jumping_Left":
+                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Jump_Loop\\Minotaur_03_Jump_Loop_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Attacking_Left":
+                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Attacking\\Minotaur_03_Attacking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Attacking_Right":
+                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Attacking\\Minotaur_03_Attacking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Idle_Right":
+                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Idle\\Minotaur_03_Idle_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                case "Idle_Left":
+                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Idle\\Minotaur_03_Idle_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+                default: 
+                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Walking\\Minotaur_03_Walking_";
+                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
+                    break;
+            } 
         }
-        
-        return retorno;  
+    
+        return retorno;
     }
-    
-    
 }

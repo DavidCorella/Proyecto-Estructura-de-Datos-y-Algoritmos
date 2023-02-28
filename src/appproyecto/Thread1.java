@@ -8,6 +8,7 @@ public class Thread1 extends Thread {
     public void run(){
         while(true){          
             ventana.setjLblMain_Character();
+            ventana.setjLblEnemy();
             try {
                 Thread.sleep(0);
             } catch (InterruptedException ex) {
