@@ -9,7 +9,8 @@ public class jFrmVentana extends javax.swing.JFrame {
     private MainCharacter principal;
     private MainCharacter enemy;
     private ImageFunctions images;
-    private Thread2 thread2;
+    private ThreadPrincipal threadPrincipal;
+    private ThreadEnemy threadEnemy;
     
     public jFrmVentana() {
         initComponents();
@@ -18,12 +19,14 @@ public class jFrmVentana extends javax.swing.JFrame {
         principal = new MainCharacter(jLblMainCharacter.getX(), jLblMainCharacter.getY(), jLblMainCharacter.getWidth(),jLblMainCharacter.getHeight(),"Principal");
         jLblMainCharacter.setIcon(principal.getIcon());
         principal.setisAction("Idle");
-        jLblEnemy.setBounds(400,324,180,120);
+        jLblEnemy.setBounds(400,346,180,120);
         enemy = new MainCharacter(jLblEnemy.getX(), jLblEnemy.getY(), jLblEnemy.getWidth(),jLblEnemy.getHeight(),"Enemy");
         jLblEnemy.setIcon(enemy.getIcon());
         enemy.setisAction("Idle");
-        thread2 = new Thread2(principal,enemy);
-        thread2.start();
+        threadPrincipal = new ThreadPrincipal(principal);
+        threadPrincipal.start();
+        threadEnemy = new ThreadEnemy(enemy,principal);
+        threadEnemy.start();
         
     }
 
@@ -68,13 +71,13 @@ public class jFrmVentana extends javax.swing.JFrame {
         }
         if(key == 'F' || key == 'f' ){
             principal.setisAction("isAttacking");
-            thread2 = new Thread2(principal,enemy);
-            thread2.start();
+            threadPrincipal = new ThreadPrincipal(principal);
+            threadPrincipal.start();
         }
         if(key == 'W' || key == 'w' ){
             principal.setisAction("isJumping");
-            thread2 = new Thread2(principal,enemy);
-            thread2.start();
+            threadPrincipal = new ThreadPrincipal(principal);
+            threadPrincipal.start();
         }
         
     }//GEN-LAST:event_formKeyPressed
@@ -83,13 +86,13 @@ public class jFrmVentana extends javax.swing.JFrame {
         char key = evt.getKeyChar();
         if(key == 'A' || key == 'a' ){
             principal.setisAction("Idle");
-            thread2 = new Thread2(principal,enemy);
-            thread2.start();       
+            threadPrincipal = new ThreadPrincipal(principal);
+            threadPrincipal.start();       
         }
         if(key == 'D' || key == 'd' ){
             principal.setisAction("Idle");
-            thread2 = new Thread2(principal,enemy);
-            thread2.start();  
+            threadPrincipal = new ThreadPrincipal(principal);
+            threadPrincipal.start();  
         }
         
         
@@ -105,6 +108,7 @@ public class jFrmVentana extends javax.swing.JFrame {
             jLblEnemy.setLocation(enemy.getPositionX(), enemy.getPositionY());     
             SwingUtilities.updateComponentTreeUI(this);
     }
+    
     
     
     
