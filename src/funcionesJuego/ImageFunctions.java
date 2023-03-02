@@ -1,3 +1,4 @@
+/*Esta Clase se encargar de traer las imagenes de todos los personajes*/
 
 package funcionesJuego;
 
@@ -7,13 +8,13 @@ import javax.swing.ImageIcon;
 
 public class ImageFunctions {
     
-    private Images images;
+    private Images image;
     
     public ImageFunctions(){
-        images = new Images();
+        image = new Images();
     }
-    public ImageIcon mcWalking(int sequence, int width, int height, String action, String type){
-        ImageIcon icon = new ImageIcon(images.getMain_Character_Walking(sequence,action,type).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+    public ImageIcon characterImages(int sequence, int width, int height, String action, String type){
+        ImageIcon icon = new ImageIcon(image.getMain_Character_Walking(sequence,action,type).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
         return icon;
     }
     

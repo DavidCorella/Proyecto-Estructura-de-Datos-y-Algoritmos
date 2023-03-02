@@ -10,9 +10,7 @@ public class AppProyecto {
         ventana.setVisible(true);
         ventana.setSize(1000, 500);
         ventana.setLocationRelativeTo(null);
-        Thread1 thread1 = new Thread1(ventana);
-        thread1.start();
-        
-    }
-    
+        FrameUpdate update = new FrameUpdate(ventana);     // Se crea y se inicia un hilo, que se encarga de actualizar visualmente el frame, sin importar si esta siendo usado, 
+        update.start();                                    // por eso se usa el mismo objeto frame  
+    }  
 }

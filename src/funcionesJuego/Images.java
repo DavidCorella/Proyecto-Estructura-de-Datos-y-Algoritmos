@@ -1,3 +1,4 @@
+/* Esta clase se encarga de traer la imagenes desde la carpeta hasta el programa*/
 
 package funcionesJuego;
 
@@ -5,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class Images {
                 
-    public ImageIcon getMain_Character_Walking(int i, String action, String type){
+    public ImageIcon getMain_Character_Walking(int i, String action, String type){ // Segun accion, numero de sequencia y tipo de personaje se escoge la imagen.
         ImageIcon retorno = null;
         String path = null;
         if(type.equals("Principal")){
