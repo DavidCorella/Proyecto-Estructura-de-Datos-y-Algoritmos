@@ -41,7 +41,7 @@ public class EnemyThread extends Thread{
                 } catch (InterruptedException ex) {
                 }
             }  
-            while(principal.getPositionX()+30>enemy.getPositionX()&&principal.getPositionX()-30<enemy.getPositionX()){ //Mientras el personaje se encuentre en un rango de 30, El enemigo
+            while(principal.getPositionX()+30>enemy.getPositionX()&&principal.getPositionX()-30<enemy.getPositionX()&&0!=(enemy.getisAction().compareTo("Attaking"))){ //Mientras el personaje se encuentre en un rango de 30, El enemigo
                 enemy.setisAction("Attacking");                                                                //Ataca
                 try {
                     Thread.sleep(200);
@@ -54,9 +54,10 @@ public class EnemyThread extends Thread{
                     principal.setLife(-10);
                 }
             }
-            
-            enemy.setisAction("Idle");          //Al final o si no se cumple nada el enemigo queda espeando.
-            enemy.idle();
+            if(0!=(enemy.getisAction().compareTo("Idle"))){
+                enemy.setisAction("Idle");          //Al final o si no se cumple nada el enemigo queda espeando.
+                enemy.idle();
+            }
     }
     
 }

@@ -35,7 +35,7 @@ public class PrincipalThread extends Thread {
                 break;
                 
             case "isJumping":
-                principal.jumping();
+                principal.jumping(5);
                 principal.setisAction("Idle");
                 principal.idle();
                 break;

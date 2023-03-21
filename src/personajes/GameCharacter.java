@@ -17,7 +17,6 @@ public class GameCharacter {
     private int sequence;
     private ImageFunctions image;
     private char direccion;
-    private int sequenceJump;
     private String isAction;
     private final String type;
     
@@ -32,7 +31,6 @@ public class GameCharacter {
         sequence = 0;
         main_Image = image.characterImages(0, width, height,"",type);
         direccion = 'R';
-        sequenceJump = 5;
         isAction = null;
         this.type = type;
     }
@@ -64,12 +62,6 @@ public class GameCharacter {
     }
     public ImageIcon getIcon(){
         return main_Image;
-    }
-    public void setSequenceJump(int sequence){
-        this.sequenceJump = sequence;
-    }
-    public int getSequenceJump(){
-        return sequenceJump;
     }
     public void setDirection(char direction){
         this.direccion = direction;
@@ -112,7 +104,7 @@ public class GameCharacter {
         main_Image = image.characterImages(sequence, width, height,"Walking_Left",type);
         direccion = 'L';
     }  
-    public void jumping() {
+    public void jumping(int sequenceJump) {
         String action = Character.compare(direccion,'R')==0?"Jumping_Right":"Jumping_Left";
         if(sequenceJump < 1){
             main_Image = image.characterImages(sequenceJump, width, height,action,type);
@@ -120,10 +112,10 @@ public class GameCharacter {
         }
         else{
             positionY -= 10;
-            main_Image = image.characterImages(sequenceJump--, width, height,action,type);
+            main_Image = image.characterImages(sequenceJump, width, height,action,type);
             pause(120);
-            jumping();
-            main_Image = image.characterImages(sequenceJump++, width, height,action,type);
+            jumping(sequenceJump-1);
+            main_Image = image.characterImages(sequenceJump, width, height,action,type);
             positionY += 10;
             pause(120);
         }
