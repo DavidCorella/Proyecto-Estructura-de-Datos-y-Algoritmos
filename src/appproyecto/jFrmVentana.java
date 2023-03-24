@@ -1,5 +1,7 @@
 /*Esta es la interfaz grafica del juego*/
 
+//Esto es un comentario
+
 package appproyecto;
 import personajes.GameCharacter;
 import funcionesJuego.ImageFunctions;
