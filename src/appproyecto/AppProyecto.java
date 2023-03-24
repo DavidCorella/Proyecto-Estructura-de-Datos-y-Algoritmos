@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 
 
-//osiuehgosighinsklge
+//david
 public class AppProyecto {
 
    
