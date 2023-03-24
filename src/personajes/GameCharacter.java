@@ -1,7 +1,7 @@
 // Este es el objeto del personaje
 
 package personajes;
-//FABIAAAAANNNNN
+//DAvid
 import funcionesJuego.ImageFunctions;
 import javax.swing.ImageIcon;
 
