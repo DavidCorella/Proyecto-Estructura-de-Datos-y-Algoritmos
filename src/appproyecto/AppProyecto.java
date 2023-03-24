@@ -4,6 +4,9 @@ package appproyecto;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
+
+
+//osiuehgosighinsklge
 public class AppProyecto {
 
    
