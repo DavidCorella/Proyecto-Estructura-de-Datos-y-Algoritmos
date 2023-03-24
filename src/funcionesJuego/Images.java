@@ -9,10 +9,9 @@ public class Images {
     public ImageIcon getMain_Character_Walking(int i, String action, String type){ // Segun accion, numero de sequencia y tipo de personaje se escoge la imagen.
         ImageIcon retorno = null;
         String path = null;
-        if(type.equals("Principal")){
             switch(action){
                 case "Walking_Right":
-                    path = ".\\src\\funcionesJuego\\Principal\\Derecha\\Walking\\Satyr_01_Walking_";
+                    path = ".\\src\\funcionesJuego\\".concat(type.concat("\\Derecha\\Walking\\Walking_"));
                     retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
                     break;
                 case "Walking_Left": 
@@ -48,46 +47,7 @@ public class Images {
                     retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
                     break;
             } 
-        }else{
-            switch(action){
-                case "Walking_Right":
-                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Walking\\Minotaur_03_Walking_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                case "Walking_Left": 
-                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Walking\\Minotaur_03_Walking_";
-                    retorno =  new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                case "Jumping_Right":
-                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Jump_Loop\\Minotaur_03_Jump_Loop_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                case "Jumping_Left":
-                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Jump_Loop\\Minotaur_03_Jump_Loop_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                case "Attacking_Left":
-                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Attacking\\Minotaur_03_Attacking_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                case "Attacking_Right":
-                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Attacking\\Minotaur_03_Attacking_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                case "Idle_Right":
-                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Idle\\Minotaur_03_Idle_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                case "Idle_Left":
-                    path = ".\\src\\funcionesJuego\\Enemy\\Izquierda\\Idle\\Minotaur_03_Idle_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-                default: 
-                    path = ".\\src\\funcionesJuego\\Enemy\\Derecha\\Walking\\Minotaur_03_Walking_";
-                    retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
-                    break;
-            } 
-        }
+ 
     
         return retorno;
     }
