@@ -92,15 +92,15 @@ public class GameCharacter {
     }
     
     //Acciones de personaje
-    public void moveRigth(){
+    public void moveRigth(int cantSequence){
         positionX += (isAction.equals("isJumping") ? 5 : 10);
-        sequence = (sequence<17?sequence + 1:0);
+        sequence = (sequence<cantSequence?sequence + 1:0);
         main_Image = image.characterImages(sequence, width, height,"Walking_Right",type);
         direccion = 'R';
     }
-    public void moveLeft(){
+    public void moveLeft(int cantSequence){
         positionX -= (isAction.equals("isJumping") ? 5 : 10);
-        sequence = (sequence<17?sequence + 1:0);
+        sequence = (sequence<cantSequence?sequence + 1:0);
         main_Image = image.characterImages(sequence, width, height,"Walking_Left",type);
         direccion = 'L';
     }  
@@ -119,28 +119,36 @@ public class GameCharacter {
             positionY += 10;
             pause(120);
         }
-        if(sequenceJump == 6){
+        if(sequenceJump == sequenceJump+1){
             action = Character.compare(direccion,'R')==0?"Walking_Right":"Walking_Left";
             sequence = 0;
             main_Image = image.characterImages(sequence, width, height,action,type);
         }
     }
-    public void attacking(){
+    public void attacking(int cantSequence){
         String action = (Character.compare(direccion, 'R')==0 ? "Attacking_Right" : "Attacking_Left");
-        for(int i = 0; i < 12 ; i++){      
+        for(int i = 0; i < cantSequence ; i++){      
             main_Image = image.characterImages(i, width, height,action,type);
             pause(75);
         }
 
         
     }
-    public void idle(){
+    public void idle(int cantSequence){
         int i = 0;
         String action = (Character.compare(direccion, 'R')==0 ? "Idle_Right" : "Idle_Left");
         while(isAction.equals("Idle")){  
             main_Image = image.characterImages(i, width, height,action,type);
             pause(100);
-            i = (i<11?i+1:0);
+            i = (i<cantSequence?i+1:0);
+        }
+    }
+    
+    public void dying(int cantSequence){
+        String action = (Character.compare(direccion, 'R')==0 ? "Dying_Right" : "Dying_Left");
+        for(int i = 0; i < cantSequence ; i++){      
+            main_Image = image.characterImages(i, width, height,action,type);
+            pause(75);
         }
     }
     

@@ -11,23 +11,31 @@ public class EnemyThread extends Thread{
     
     private GameCharacter enemy;
     private GameCharacter principal;
+    private int sequenceJump;
+    private int sequenceWalk;
+    private int sequenceAttack;
+    private int sequenceIdle;
     
-    public EnemyThread(GameCharacter enemy, GameCharacter principal){       // Se usan los 2 objetos que se han usado en todo el programa
+    public EnemyThread(GameCharacter enemy, GameCharacter principal, int sequenceJump, int sequenceWalk, int sequenceAttack, int sequenceIdle){       // Se usan los 2 objetos que se han usado en todo el programa
         this.enemy = enemy;
         this.principal = principal;
+        this.sequenceAttack = sequenceAttack;
+        this.sequenceIdle = sequenceIdle;
+        this.sequenceWalk = sequenceWalk;
+        this.sequenceJump = sequenceJump;
     }
     
  
     public void run(){
-        executeAction();       
+        executeAction(sequenceJump, sequenceWalk, sequenceAttack, sequenceIdle);       
     }
     
-    public void executeAction(){
+    public void executeAction(int sequenceJump, int sequenceWalk, int sequnceAttack, int sequenceIdle){
         
        
             while(principal.getPositionX()-250<enemy.getPositionX()&principal.getPositionX()-30>enemy.getPositionX()){    //Si el personaje se encuentra a 250px el enemigo camina para llegar
                 enemy.setisAction("Walking");                                                                     //a el hasta que se acerque 30px antes
-                enemy.moveRigth();
+                enemy.moveRigth(sequenceWalk);
                 try {
                     Thread.sleep(30);         //cada 30ms se mueve un paso hasta que llegue o se aleje lo configurado
                 } catch (InterruptedException ex) {
@@ -35,7 +43,7 @@ public class EnemyThread extends Thread{
             }
             while(principal.getPositionX()+250>enemy.getPositionX()&&principal.getPositionX()+30<enemy.getPositionX()){
                 enemy.setisAction("Walking");   //Se setea la accion para saber que hace en cada momento
-                enemy.moveLeft();
+                enemy.moveLeft(sequenceWalk);
                 try {
                     Thread.sleep(30);
                 } catch (InterruptedException ex) {
@@ -47,17 +55,18 @@ public class EnemyThread extends Thread{
                     Thread.sleep(200);
                 } catch (InterruptedException ex) {
                 }
-                enemy.attacking();
+                enemy.attacking(sequnceAttack);
                 if(new Rectangle(enemy.getPositionX(),enemy.getPositionY(),enemy.getWidth()-10,enemy.getHeight()-10).intersects //Si colicionan baja 10 de vida al principal.
                     (principal.getPositionX(),principal.getPositionY(),principal.getWidth()-10,principal.getHeight()-10)){
                     
                     principal.setLife(-10);
                 }
             }
-            if(0!=(enemy.getisAction().compareTo("Idle"))){
-                enemy.setisAction("Idle");          //Al final o si no se cumple nada el enemigo queda espeando.
-                enemy.idle();
-            }
+            
+            enemy.setisAction("Idle");          //Al final o si no se cumple nada el enemigo queda espeando.
+            enemy.idle(sequenceIdle);
+            
+            
     }
     
 }

@@ -1,12 +1,6 @@
 
 package appproyecto;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
-
-
-
-//david
 public class AppProyecto {
 
    

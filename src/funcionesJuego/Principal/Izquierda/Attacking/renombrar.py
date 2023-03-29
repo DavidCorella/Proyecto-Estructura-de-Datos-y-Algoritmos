@@ -1,8 +1,9 @@
 import os
 
-i = 0
-for i in range(10):
-    archivo = str(os.getcwd()) + "\\Minotaur_03_Dying_00" + str(i) + ".png"
-    nombre = str(os.getcwd() )+ "\\Minotaur_03_Dying_" + str(i) + ".png"
-    print (archivo)
-   # os.rename(archivo,nombre)
+carpeta = "Attacking"
+accion = "Attack"
+i = 10
+for i in range(0,12):
+    archivo = "C:\\Users\David\\OneDrive\\Documents\\NetBeansProjects\\appProyecto\\src\\funcionesJuego\\Boss1\\Derecha\\"+carpeta+"\\Wraith_01_"+accion +"_"+ str(i) + ".png"
+    nombre = "C:\\Users\David\\OneDrive\\Documents\\NetBeansProjects\\appProyecto\\src\\funcionesJuego\\Boss1\\Derecha\\"+carpeta+"\\"+accion+"_" + str(i) + ".png"
+    os.rename(archivo,nombre)

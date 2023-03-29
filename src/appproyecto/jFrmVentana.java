@@ -5,6 +5,8 @@
 package appproyecto;
 import personajes.GameCharacter;
 import funcionesJuego.ImageFunctions;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
 public class jFrmVentana extends javax.swing.JFrame {
@@ -20,22 +22,27 @@ public class jFrmVentana extends javax.swing.JFrame {
         initComponents();
         image = new ImageFunctions();
         //Se instancia y se configura el inicio del personaje principal.
-        jLblMainCharacter.setBounds(24,364,180,120);
+        jLblMainCharacter.setBounds(24,154,180,120);
         principal = new GameCharacter(jLblMainCharacter.getX(), jLblMainCharacter.getY(), jLblMainCharacter.getWidth(),jLblMainCharacter.getHeight(),"Principal");
         jLblMainCharacter.setIcon(principal.getIcon());
         principal.setisAction("Idle");
         
         /*Se instancia y se configura el inicio del enemigo.*/
-        jLblEnemy.setBounds(600,346,180,120);
-        enemy = new GameCharacter(jLblEnemy.getX(), jLblEnemy.getY(), jLblEnemy.getWidth(),jLblEnemy.getHeight(),"Enemy");
+        jLblEnemy.setBounds(600,136,180,120);
+        enemy = new GameCharacter(jLblEnemy.getX(), jLblEnemy.getY(), jLblEnemy.getWidth(),jLblEnemy.getHeight(),"Boss1");
         jLblEnemy.setIcon(enemy.getIcon());
         enemy.setisAction("Idle");
         
         //Se inian los hilos de ambos personajes.
-        principalThread = new PrincipalThread(principal,enemy);
+        principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
         principalThread.start();
-        enemyThread = new EnemyThread(enemy,principal);
+        enemyThread = new EnemyThread(enemy,principal,0,11,11,11);
         enemyThread.start(); 
+        
+        jLblFondo.setLocation(0, 0);
+        jLblFondo.setSize(1500, 500);
+        ImageIcon fondo = new ImageIcon(".\\src\\Fondos\\Fondo1.png");
+        jLblFondo.setIcon(new ImageIcon(fondo.getImage().getScaledInstance(1500, 500, Image.SCALE_SMOOTH)));
         
     }
 
@@ -44,10 +51,12 @@ public class jFrmVentana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLblMainCharacter = new javax.swing.JLabel();
         jLblEnemy = new javax.swing.JLabel();
+        jLblMainCharacter = new javax.swing.JLabel();
         jPrbLife = new javax.swing.JProgressBar();
         jPrbEnemy = new javax.swing.JProgressBar();
+        background = new javax.swing.JLabel();
+        jLblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -59,12 +68,12 @@ public class jFrmVentana extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(null);
-        getContentPane().add(jLblMainCharacter);
-        jLblMainCharacter.setBounds(24, 364, 0, 0);
 
         jLblEnemy.setName("jLblEnemy"); // NOI18N
         getContentPane().add(jLblEnemy);
         jLblEnemy.setBounds(0, 0, 0, 0);
+        getContentPane().add(jLblMainCharacter);
+        jLblMainCharacter.setBounds(24, 364, 0, 0);
 
         jPrbLife.setForeground(new java.awt.Color(153, 255, 153));
         jPrbLife.setValue(100);
@@ -75,6 +84,10 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbEnemy.setValue(100);
         getContentPane().add(jPrbEnemy);
         jPrbEnemy.setBounds(20, 80, 90, 20);
+        getContentPane().add(background);
+        background.setBounds(280, 170, 10, 0);
+        getContentPane().add(jLblFondo);
+        jLblFondo.setBounds(340, 50, 0, 0);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -83,15 +96,15 @@ public class jFrmVentana extends javax.swing.JFrame {
         char key = evt.getKeyChar();                                
         if(key == 'D' || key == 'd' ){
            principal.setisAction("Walking");
-           principal.moveRigth();
+           principal.moveRigth(17);
         }
         if(key == 'A' || key == 'a' ){
             principal.setisAction("Walking");                   //Segun la tecla presionada se ejecuta la accion o el hilo configurado
-            principal.moveLeft();
+            principal.moveLeft(17);
         }
         if(key == 'W' || key == 'w' ){
             principal.setisAction("isJumping");
-            principalThread = new PrincipalThread(principal,enemy);
+            principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
             principalThread.start();
         }
         
@@ -101,21 +114,21 @@ public class jFrmVentana extends javax.swing.JFrame {
         char key = evt.getKeyChar();
         if(key == 'A' || key == 'a' ){
             principal.setisAction("Idle");
-            principalThread = new PrincipalThread(principal,enemy);
+            principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
             principalThread.start();
-            enemyThread = new EnemyThread(enemy,principal);
+            enemyThread = new EnemyThread(enemy,principal,0,11,11,11);
             enemyThread.start(); 
         }
         if(key == 'D' || key == 'd' ){
             principal.setisAction("Idle");                      //Segun la tecla que se suelte, se ejecuta el hilo configurado
-            principalThread = new PrincipalThread(principal, enemy);
+            principalThread = new PrincipalThread(principal, enemy,5,17,11,11);
             principalThread.start();
-            enemyThread = new EnemyThread(enemy,principal);
+            enemyThread = new EnemyThread(enemy,principal,0,11,11,11);
             enemyThread.start();
         }
         if(key == 'F' || key == 'f' ){
             principal.setisAction("isAttacking");
-            principalThread = new PrincipalThread(principal,enemy);
+            principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
             principalThread.start();
         }
         
@@ -139,7 +152,9 @@ public class jFrmVentana extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
     private javax.swing.JLabel jLblEnemy;
+    private javax.swing.JLabel jLblFondo;
     private javax.swing.JLabel jLblMainCharacter;
     private javax.swing.JProgressBar jPrbEnemy;
     private javax.swing.JProgressBar jPrbLife;
