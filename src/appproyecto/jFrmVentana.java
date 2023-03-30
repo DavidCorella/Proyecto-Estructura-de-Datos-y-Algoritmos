@@ -3,47 +3,33 @@
 //Esto es un comentario
 
 package appproyecto;
-import personajes.GameCharacter;
-import funcionesJuego.ImageFunctions;
+import LogicaPersonajes.GameCharacter;
+import LogicaImagenes.ImageFunctions;
+import Mapas.FuncionesMapa;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class jFrmVentana extends javax.swing.JFrame {
 
     private GameCharacter principal;
     private GameCharacter enemy;
+    private GameCharacter enemy2;
     private ImageFunctions image;
     private PrincipalThread principalThread;
     private EnemyThread enemyThread;
+    private EnemyThread enemyThread2;
+    private FuncionesMapa mapa;
+    private String actualMap;
     
     public jFrmVentana() {
         
         initComponents();
-        image = new ImageFunctions();
-        //Se instancia y se configura el inicio del personaje principal.
-        jLblMainCharacter.setBounds(24,154,180,120);
-        principal = new GameCharacter(jLblMainCharacter.getX(), jLblMainCharacter.getY(), jLblMainCharacter.getWidth(),jLblMainCharacter.getHeight(),"Principal");
-        jLblMainCharacter.setIcon(principal.getIcon());
-        principal.setisAction("Idle");
-        
-        /*Se instancia y se configura el inicio del enemigo.*/
-        jLblEnemy.setBounds(600,136,180,120);
-        enemy = new GameCharacter(jLblEnemy.getX(), jLblEnemy.getY(), jLblEnemy.getWidth(),jLblEnemy.getHeight(),"Boss1");
-        jLblEnemy.setIcon(enemy.getIcon());
-        enemy.setisAction("Idle");
-        
-        //Se inian los hilos de ambos personajes.
-        principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
-        principalThread.start();
-        enemyThread = new EnemyThread(enemy,principal,0,11,11,11);
-        enemyThread.start(); 
-        
-        jLblFondo.setLocation(0, 0);
-        jLblFondo.setSize(1500, 500);
-        ImageIcon fondo = new ImageIcon(".\\src\\Fondos\\Fondo1.png");
-        jLblFondo.setIcon(new ImageIcon(fondo.getImage().getScaledInstance(1500, 500, Image.SCALE_SMOOTH)));
-        
+        actualMap = "Mapa1";
+        mapa = new FuncionesMapa();
+        loadMaps();
+        useMap(actualMap);  
     }
 
     
@@ -51,11 +37,12 @@ public class jFrmVentana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLblEnemy2 = new javax.swing.JLabel();
         jLblEnemy = new javax.swing.JLabel();
         jLblMainCharacter = new javax.swing.JLabel();
         jPrbLife = new javax.swing.JProgressBar();
         jPrbEnemy = new javax.swing.JProgressBar();
-        background = new javax.swing.JLabel();
+        jPrbEnemy2 = new javax.swing.JProgressBar();
         jLblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,6 +55,8 @@ public class jFrmVentana extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(null);
+        getContentPane().add(jLblEnemy2);
+        jLblEnemy2.setBounds(300, 170, 0, 0);
 
         jLblEnemy.setName("jLblEnemy"); // NOI18N
         getContentPane().add(jLblEnemy);
@@ -83,9 +72,12 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbEnemy.setForeground(new java.awt.Color(255, 102, 102));
         jPrbEnemy.setValue(100);
         getContentPane().add(jPrbEnemy);
-        jPrbEnemy.setBounds(20, 80, 90, 20);
-        getContentPane().add(background);
-        background.setBounds(280, 170, 10, 0);
+        jPrbEnemy.setBounds(20, 110, 90, 20);
+
+        jPrbEnemy2.setForeground(new java.awt.Color(255, 102, 102));
+        jPrbEnemy2.setValue(100);
+        getContentPane().add(jPrbEnemy2);
+        jPrbEnemy2.setBounds(20, 80, 90, 20);
         getContentPane().add(jLblFondo);
         jLblFondo.setBounds(340, 50, 0, 0);
 
@@ -93,45 +85,26 @@ public class jFrmVentana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        char key = evt.getKeyChar();                                
-        if(key == 'D' || key == 'd' ){
-           principal.setisAction("Walking");
-           principal.moveRigth(17);
-        }
-        if(key == 'A' || key == 'a' ){
-            principal.setisAction("Walking");                   //Segun la tecla presionada se ejecuta la accion o el hilo configurado
-            principal.moveLeft(17);
-        }
-        if(key == 'W' || key == 'w' ){
-            principal.setisAction("isJumping");
-            principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
-            principalThread.start();
-        }
+        char key = evt.getKeyChar();
+        boolean action = principal.getisAction().compareTo("Attacking")==0||principal.getisAction().compareTo("isJumping")==0;
+        principalThread = new PrincipalThread(principal,enemy,enemy2,5,17,11,11, !action?key:' ');
+        principalThread.start();
         
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         char key = evt.getKeyChar();
-        if(key == 'A' || key == 'a' ){
-            principal.setisAction("Idle");
-            principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
-            principalThread.start();
-            enemyThread = new EnemyThread(enemy,principal,0,11,11,11);
-            enemyThread.start(); 
-        }
-        if(key == 'D' || key == 'd' ){
-            principal.setisAction("Idle");                      //Segun la tecla que se suelte, se ejecuta el hilo configurado
-            principalThread = new PrincipalThread(principal, enemy,5,17,11,11);
-            principalThread.start();
-            enemyThread = new EnemyThread(enemy,principal,0,11,11,11);
+        boolean action = principal.getisAction().compareTo("Attacking")==0||principal.getisAction().compareTo("isJumping")==0;
+        principalThread = new PrincipalThread(principal,enemy,enemy2,5,17,11,11, !action?'~':' ');
+        principalThread.start();
+        if(enemy.getisAction().compareTo("Idle")==0 && enemy.getLife()>0){
+            enemyThread = new EnemyThread(enemy,principal,0,23,11,17);
             enemyThread.start();
         }
-        if(key == 'F' || key == 'f' ){
-            principal.setisAction("isAttacking");
-            principalThread = new PrincipalThread(principal,enemy,5,17,11,11);
-            principalThread.start();
+        if(enemy2.getisAction().compareTo("Idle")==0&&enemy2.getLife()>0){
+            enemyThread2 = new EnemyThread(enemy2,principal,0,23,11,17);
+            enemyThread2.start();
         }
-        
     }//GEN-LAST:event_formKeyReleased
 
     public void setjLblMain_Character(){
@@ -144,19 +117,68 @@ public class jFrmVentana extends javax.swing.JFrame {
         jLblEnemy.setLocation(enemy.getPositionX(), enemy.getPositionY());                     //Actualizacion del label del enemigo.
         SwingUtilities.updateComponentTreeUI(this);
     }
+    public void setjLblEnemy2(){
+        jLblEnemy2.setIcon(enemy2.getIcon());
+        jLblEnemy2.setLocation(enemy2.getPositionX(), enemy2.getPositionY());                     //Actualizacion del label del enemigo.
+        SwingUtilities.updateComponentTreeUI(this);
+    }
     public void setLifeBar(){
         jPrbEnemy.setValue(enemy.getLife());
+        jPrbEnemy2.setValue(enemy2.getLife());
         jPrbLife.setValue(principal.getLife());                                                  //Actualizacion de las barras de vida.
         jPrbEnemy.setLocation(enemy.getPositionX()+40,enemy.getPositionY()-20);
-        
+        jPrbEnemy2.setLocation(enemy2.getPositionX()+40,enemy2.getPositionY()-20);
+        if(principal.getisAction().compareTo("Dying")==0){
+            useMap(actualMap);
+            JOptionPane.showMessageDialog(null, "YOU DIE");
+        }    
     }
+    private void loadMaps(){
+        ImageIcon fondo = new ImageIcon(".\\src\\Fondos\\Fondo1.png");
+        mapa.insertMapa("Mapa1", 24, 154, 500, 146, 1000, 146, -50, -50, "", fondo);
+        mapa.insertMapa("Mapa2", 24, 154, -50, -50, -50, -50, 136, 1000, "Boss1", fondo);            
+    }
+    private void useMap(String typeMap){ 
+        
+        principal = new GameCharacter(mapa.getXPrincipal(typeMap), mapa.getYPrincipal(typeMap), 180,120,"Principal");
+        jLblMainCharacter.setBounds(principal.getPositionX(),principal.getPositionY(),principal.getWidth(),principal.getHeight());
+        jLblMainCharacter.setIcon(principal.getIcon());
+        principal.setisAction("Idle");
+        
+        /*Se instancia y se configura el inicio del enemigo.*/
+        enemy = new GameCharacter(mapa.getXEnemy1(typeMap), mapa.getYEnemy1(typeMap), 180,120,"Enemy");
+        jLblEnemy.setBounds(enemy.getPositionX(),enemy.getPositionY(),enemy.getWidth(),enemy.getHeight());
+        jLblEnemy.setIcon(enemy.getIcon());
+        enemy.setisAction("Idlee");
+        
+        enemy2 = new GameCharacter(mapa.getXEnemy2(typeMap), mapa.getYEnemy2(typeMap), 180,120,"Enemy");
+        jLblEnemy2.setBounds(enemy2.getPositionX(),enemy2.getPositionY(),enemy2.getWidth(),enemy2.getHeight());
+        jLblEnemy2.setIcon(enemy2.getIcon());
+        enemy2.setisAction("Idlee");
+        
+        //Se inian los hilos de ambos personajes.
+        principalThread = new PrincipalThread(principal,enemy,enemy2,5,17,11,11,'~');
+        principalThread.start();
+        enemyThread = new EnemyThread(enemy,principal,0,23,11,17);
+        enemyThread.start();
+        enemyThread2 = new EnemyThread(enemy2,principal,0,23,11,17);
+        enemyThread2.start();
+        
+        jLblFondo.setLocation(0, 0);
+        jLblFondo.setSize(1500, 500);
+        ImageIcon fondo = mapa.getFondo(typeMap);
+        jLblFondo.setIcon(new ImageIcon(fondo.getImage().getScaledInstance(1500, 500, Image.SCALE_SMOOTH)));
+        
+        actualMap = typeMap;
+    } 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel background;
     private javax.swing.JLabel jLblEnemy;
+    private javax.swing.JLabel jLblEnemy2;
     private javax.swing.JLabel jLblFondo;
     private javax.swing.JLabel jLblMainCharacter;
     private javax.swing.JProgressBar jPrbEnemy;
+    private javax.swing.JProgressBar jPrbEnemy2;
     private javax.swing.JProgressBar jPrbLife;
     // End of variables declaration//GEN-END:variables
 }

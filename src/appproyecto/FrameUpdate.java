@@ -9,7 +9,8 @@ public class FrameUpdate extends Thread {
     public void run(){
         while(true){     
             ventana.setjLblMain_Character();
-            ventana.setjLblEnemy();               
+            ventana.setjLblEnemy();
+            ventana.setjLblEnemy2();
             ventana.setLifeBar(); 
         }
     }
