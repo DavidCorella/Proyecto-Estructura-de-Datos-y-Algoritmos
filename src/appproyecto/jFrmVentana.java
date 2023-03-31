@@ -29,7 +29,7 @@ public class jFrmVentana extends javax.swing.JFrame {
     public jFrmVentana() {
         
         initComponents();
-        actualMap = "Mapa5";
+        actualMap = "Mapa4";
         mapa = new FuncionesMapa();
         loadMaps();
         useMap(actualMap);  
@@ -133,7 +133,13 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbEnemy2.setValue(enemy2.getLife());
         jPrbLife.setValue(principal.getLife());                                                  //Actualizacion de las barras de vida.
         jPrbEnemy.setLocation(enemy.getPositionX()+40,enemy.getPositionY()-20);
-        jPrbEnemy2.setLocation(enemy2.getPositionX()+40,enemy2.getPositionY()-20);
+        if(enemy2.getType().compareTo("Boss1")==0 || enemy2.getType().compareTo("Boss2")==0){
+            jPrbEnemy2.setSize(500, 20);
+            jPrbEnemy2.setLocation(450,100);
+        }else{
+            jPrbEnemy2.setSize(150, 20);
+            jPrbEnemy2.setLocation(enemy2.getPositionX()+40,enemy2.getPositionY()-20);
+        }
         if(principal.getisAction().compareTo("Dying")==0){
             useMap(actualMap);
             JOptionPane.showMessageDialog(null, "YOU DIE");
