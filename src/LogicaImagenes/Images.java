@@ -34,11 +34,11 @@ public class Images {
                 retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
                 break;
             case "Attacking2_Right":
-                path = ".\\src\\Personajes\\".concat(type.concat("\\Derecha\\Attacking2\\Attacking2_"));
+                path = ".\\src\\Personajes\\".concat(type.concat("\\Derecha\\Attacking2\\Attacking_"));
                 retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
                 break;
             case "Attacking2_Left":
-                path = ".\\src\\Personajes\\".concat(type.concat("\\Izquierda\\Attacking2\\Attacking2_"));
+                path = ".\\src\\Personajes\\".concat(type.concat("\\Izquierda\\Attacking2\\Attacking_"));
                 retorno = new ImageIcon(path.concat(String.valueOf(i).concat(".png")));
                 break;
             case "Idle_Right":

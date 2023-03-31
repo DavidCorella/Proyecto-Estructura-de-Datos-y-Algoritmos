@@ -51,7 +51,15 @@ public class EnemyThread extends Thread {
             enemy.setisAction("Attacking");                                                                //Ataca
             try {
                 Thread.sleep(200);
-                enemy.attacking(sequnceAttack);
+                if(enemy.getType().compareTo("Boss2")==0){
+                    if(enemy.getLife()<50){
+                        enemy.attacking(sequnceAttack,"Attacking2");
+                    }else{
+                        enemy.attacking(sequnceAttack,"Attacking");
+                    }
+                }else{
+                    enemy.attacking(sequnceAttack);
+                }
                 if (new Rectangle(enemy.getPositionX(), enemy.getPositionY(), enemy.getWidth() - 10, enemy.getHeight() - 10).intersects //Si colicionan baja 10 de vida al principal.
                         (principal.getPositionX(), principal.getPositionY(), principal.getWidth() - 10, principal.getHeight() - 10)) {
 

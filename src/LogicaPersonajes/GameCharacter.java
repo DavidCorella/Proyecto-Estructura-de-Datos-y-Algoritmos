@@ -35,7 +35,9 @@ public class GameCharacter {
         this.type = type;
     }
     
-    //Sets y Gets de Atributos
+    public String getType(){
+        return type;
+    }
     public int getHeight(){
         return height;
     }
@@ -130,9 +132,14 @@ public class GameCharacter {
         for(int i = 0; i < cantSequence ; i++){      
             main_Image = image.characterImages(i, width, height,action,type);
             pause(75);
-        }
-
-        
+        }   
+    }
+    public void attacking(int cantSequence,String attackType){
+        String action = attackType.concat((Character.compare(direccion, 'R')==0 ? "_Right" : "_Left"));
+        for(int i = 0; i < cantSequence ; i++){      
+            main_Image = image.characterImages(i, width, height,action,type);
+            pause(75);
+        }   
     }
     public void idle(int cantSequence){
         int i = 0;
