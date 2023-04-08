@@ -11,7 +11,7 @@ public class FuncionesMapa {
     }
 
     public void insertMapa(String nombre, int xPrincipal, int yPrincipal, int xEnemy1, int yEnemy1, int xEnemy2, int yEnemy2,
-                            int yBoss, int xBoss, String bossType, ImageIcon fondo) {
+                            int yBoss, int xBoss, String bossType, ImageIcon fondo, int xLampara, int yLampara) {
         Mapa nodoNuevo = new Mapa();
         nodoNuevo.siguiente = null;
         nodoNuevo.fondo = fondo;
@@ -25,6 +25,8 @@ public class FuncionesMapa {
         nodoNuevo.yBoss = yBoss;
         nodoNuevo.xBoss = xBoss;
         nodoNuevo.bossType = bossType;
+        nodoNuevo.xLampara = xLampara;
+        nodoNuevo.yLampara = yLampara;
         if (nodo == null) {
             nodo = nodoNuevo;
 
@@ -168,5 +170,33 @@ public class FuncionesMapa {
             }
         }
         return fondo;
+    }
+     public int getxLampara(String mapa){
+        int x = 0;
+        Mapa aux = nodo;
+        while(aux != null){
+            if(aux.nombre.compareTo(mapa)==0){
+                x = aux.xLampara;
+                break;
+            }
+            else{
+            aux = aux.siguiente;
+            }
+        }
+        return x;
+    }
+     public int getyLampara(String mapa){
+        int y = 0;
+        Mapa aux = nodo;
+        while(aux != null){
+            if(aux.nombre.compareTo(mapa)==0){
+                y = aux.yLampara;
+                break;
+            }
+            else{
+            aux = aux.siguiente;
+            }
+        }
+        return y;
     }
 }

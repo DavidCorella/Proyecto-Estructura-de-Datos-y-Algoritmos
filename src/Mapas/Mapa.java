@@ -18,6 +18,8 @@ public class Mapa {
     public int yBoss;
     public String bossType;
     public Mapa siguiente;
+    public int xLampara;
+    public int yLampara;
     
     
 }
