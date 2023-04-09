@@ -6,7 +6,7 @@ package appproyecto;
 import java.awt.Rectangle;
 import LogicaPersonajes.GameCharacter;
 
-public class PrincipalThread extends Thread {
+public class PrincipalThread extends Thread{
 
     private GameCharacter principal;
     private GameCharacter enemy;
@@ -16,7 +16,22 @@ public class PrincipalThread extends Thread {
     private int sequenceIdle;
     private char key;
     private GameCharacter enemy2;
+    private int mapa;
 
+    public PrincipalThread(GameCharacter principal, GameCharacter enemy, GameCharacter enemy2, int sequenceJump, int sequenceWalk, int sequenceAttack, int sequenceIdle, char key, int mapa) {  // Se piden los mismos objetos de personaje y enemigo que ha usado el mismo programa.
+        this.principal = principal;
+        this.enemy = enemy;
+        this.enemy = enemy;
+        this.principal = principal;
+        this.sequenceAttack = sequenceAttack;
+        this.sequenceIdle = sequenceIdle;
+        this.sequenceWalk = sequenceWalk;
+        this.sequenceJump = sequenceJump;
+        this.key = key;
+        this.enemy2 = enemy2;
+        this.mapa = mapa;
+    }
+    
     public PrincipalThread(GameCharacter principal, GameCharacter enemy, GameCharacter enemy2, int sequenceJump, int sequenceWalk, int sequenceAttack, int sequenceIdle, char key) {  // Se piden los mismos objetos de personaje y enemigo que ha usado el mismo programa.
         this.principal = principal;
         this.enemy = enemy;
@@ -39,15 +54,17 @@ public class PrincipalThread extends Thread {
             switch (key) {
                 case 'A':
                 case 'a':
-                    if (principal.getPositionX() > -30) {
+                    if ((principal.getPositionX() > 315 && mapa==0)||(mapa!=0 && principal.getPositionX()>-30)) {
                         principal.setisAction("Walking");
                         principal.moveLeft(17);
                     }
                     break;
                 case 'd':
                 case 'D':
-                    principal.setisAction("Walking");
-                    principal.moveRigth(17);
+                    if(principal.getPositionX()<1350 || (enemy.getLife()<1 && enemy2.getLife()<1)){
+                        principal.setisAction("Walking");
+                        principal.moveRigth(17);
+                    }
                     break;
                 case 'F':
                 case 'f':
@@ -90,5 +107,7 @@ public class PrincipalThread extends Thread {
 
         }
     }
+    
+    
 
 }

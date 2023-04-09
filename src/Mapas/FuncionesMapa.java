@@ -10,12 +10,12 @@ public class FuncionesMapa {
         nodo = null;
     }
 
-    public void insertMapa(String nombre, int xPrincipal, int yPrincipal, int xEnemy1, int yEnemy1, int xEnemy2, int yEnemy2,
+    public void insertMapa(int numeroMapa, int xPrincipal, int yPrincipal, int xEnemy1, int yEnemy1, int xEnemy2, int yEnemy2,
                             int yBoss, int xBoss, String bossType, ImageIcon fondo, int xLampara, int yLampara) {
         Mapa nodoNuevo = new Mapa();
         nodoNuevo.siguiente = null;
         nodoNuevo.fondo = fondo;
-        nodoNuevo.nombre = nombre;
+        nodoNuevo.numeroMapa = numeroMapa;
         nodoNuevo.xPrincipal = xPrincipal;
         nodoNuevo.yPrincipal = yPrincipal;
         nodoNuevo.xEnemy1 = xEnemy1;
@@ -36,11 +36,11 @@ public class FuncionesMapa {
         }
     }
 
-    public int getXPrincipal(String mapa) {
+    public int getXPrincipal(int mapa) {
         int xPrincipal = 0;
         Mapa aux = nodo;
         while (aux != null) {
-            if (aux.nombre.compareTo(mapa) == 0) {
+            if (aux.numeroMapa == mapa) {
                 xPrincipal = aux.xPrincipal;
                 break;
             } else {
@@ -49,11 +49,11 @@ public class FuncionesMapa {
         }
         return xPrincipal;
     }
-    public int getYPrincipal(String mapa) {
+    public int getYPrincipal(int mapa) {
         int yPrincipal = 0;
         Mapa aux = nodo;
         while (aux != null) {
-            if (aux.nombre.compareTo(mapa) == 0) {
+            if (aux.numeroMapa == mapa) {
                 yPrincipal = aux.yPrincipal;
                 break;
             } else {
@@ -62,11 +62,11 @@ public class FuncionesMapa {
         }
         return yPrincipal;
     }
-    public int getXEnemy1(String mapa) {
+    public int getXEnemy1(int mapa) {
         int xEnemy = 0;
         Mapa aux = nodo;
         while (aux != null) {
-            if (aux.nombre.compareTo(mapa) == 0) {
+            if (aux.numeroMapa == mapa) {
                 xEnemy = aux.xEnemy1;
                 break;
             } else {
@@ -75,11 +75,11 @@ public class FuncionesMapa {
         }
         return xEnemy;
     }
-    public int getXEnemy2(String mapa) {
+    public int getXEnemy2(int mapa) {
         int xEnemy = 0;
         Mapa aux = nodo;
         while (aux != null) {
-            if (aux.nombre.compareTo(mapa) == 0) {
+            if (aux.numeroMapa == mapa) {
                 xEnemy = aux.xEnemy2;
                 break;
             } else {
@@ -88,11 +88,11 @@ public class FuncionesMapa {
         }
         return xEnemy;
     }
-    public int getYEnemy1(String mapa) {
+    public int getYEnemy1(int mapa) {
         int yEnemy = 0;
         Mapa aux = nodo;
         while (aux != null) {
-            if (aux.nombre.compareTo(mapa) == 0) {
+            if (aux.numeroMapa == mapa) {
                 yEnemy = aux.yEnemy1;
                 break;
             } else {
@@ -101,11 +101,11 @@ public class FuncionesMapa {
         }
         return yEnemy;
     }
-    public int getYEnemy2(String mapa){
+    public int getYEnemy2(int mapa){
         int yEnemy = 0;
         Mapa aux = nodo;
         while(aux != null){
-            if(aux.nombre.compareTo(mapa)==0){
+            if(aux.numeroMapa == mapa){
                 yEnemy = aux.yEnemy2;
                 break;
             }
@@ -115,11 +115,11 @@ public class FuncionesMapa {
         }
         return yEnemy;
     }
-    public int getYBoss(String mapa){
+    public int getYBoss(int mapa){
         int yBoss = 0;
         Mapa aux = nodo;
         while(aux != null){
-            if(aux.nombre.compareTo(mapa)==0){
+            if(aux.numeroMapa == mapa){
                 yBoss = aux.yBoss;
                 break;
             }
@@ -129,11 +129,11 @@ public class FuncionesMapa {
         }
         return yBoss;
     }
-    public int getXBoss(String mapa){
+    public int getXBoss(int mapa){
         int xBoss = 0;
         Mapa aux = nodo;
         while(aux != null){
-            if(aux.nombre.compareTo(mapa)==0){
+            if(aux.numeroMapa == mapa){
                 xBoss = aux.xBoss;
                 break;
             }
@@ -143,11 +143,11 @@ public class FuncionesMapa {
         }
         return xBoss;
     }
-    public String getBossType(String mapa){
+    public String getBossType(int mapa){
         String bossType = "";
         Mapa aux = nodo;
         while(aux != null){
-            if(aux.nombre.compareTo(mapa)==0){
+            if(aux.numeroMapa == mapa){
                 bossType = aux.bossType;
                 break;
             }
@@ -157,11 +157,11 @@ public class FuncionesMapa {
         }
         return bossType;
     }
-    public ImageIcon getFondo(String mapa){
+    public ImageIcon getFondo(int mapa){
         ImageIcon fondo = null;
         Mapa aux = nodo;
         while(aux != null){
-            if(aux.nombre.compareTo(mapa)==0){
+            if(aux.numeroMapa == mapa){
                 fondo = aux.fondo;
                 break;
             }
@@ -171,11 +171,11 @@ public class FuncionesMapa {
         }
         return fondo;
     }
-     public int getxLampara(String mapa){
+     public int getxLampara(int mapa){
         int x = 0;
         Mapa aux = nodo;
         while(aux != null){
-            if(aux.nombre.compareTo(mapa)==0){
+            if(aux.numeroMapa == mapa){
                 x = aux.xLampara;
                 break;
             }
@@ -185,11 +185,11 @@ public class FuncionesMapa {
         }
         return x;
     }
-     public int getyLampara(String mapa){
+     public int getyLampara(int mapa){
         int y = 0;
         Mapa aux = nodo;
         while(aux != null){
-            if(aux.nombre.compareTo(mapa)==0){
+            if(aux.numeroMapa == mapa){
                 y = aux.yLampara;
                 break;
             }

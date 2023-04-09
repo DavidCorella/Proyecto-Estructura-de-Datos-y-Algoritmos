@@ -85,29 +85,29 @@ public class Lamp {
         return imag;
     }
 
-    public ImageIcon lampState(String mapa){
+    public ImageIcon lampState(int mapa){
         String lamp = "";
         switch(mapa){
-            case "Mapa0":
+            case 0:
                 lamp = lampState0;
                 break;
-            case "Mapa1":
+            case 1:
                 lamp = lampState1;
                 break;
-            case "Mapa2":
+            case 2:
                 lamp = lampState2;
                 break;
-            case "Mapa3":
-                lamp = lampState0;
+            case 3:
+                lamp = lampState3;
                 break;
-            case "Mapa4":
-                lamp = lampState0;
+            case 4:
+                lamp = lampState4;
                 break;
-            case "Mapa5":
-                lamp = lampState0;
+            case 5:
+                lamp = lampState5;
                 break;
-            case "Mapa6":
-                lamp = lampState0;
+            case 6:
+                lamp = lampState6;
                 break;
         }
         Image preImag = null;

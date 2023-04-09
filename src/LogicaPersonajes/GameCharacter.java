@@ -47,6 +47,9 @@ public class GameCharacter {
     public int getLife(){
         return life;
     }
+    public void setLife0(int life){
+        this.life = life;
+    }
     public void setLife(int life){
         this.life += life;
     }

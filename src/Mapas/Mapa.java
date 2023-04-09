@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class Mapa {
    
-    public String nombre;
+    public int numeroMapa;
     public ImageIcon fondo;
     public int xPrincipal ;
     public int yPrincipal;
