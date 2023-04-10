@@ -8,22 +8,28 @@ import javax.sound.sampled.Clip;
 public class Sonido extends Thread{
     
     private String audioPath;
+    private Clip audio;
     
     public Sonido(String audio){
         audioPath = audio;
+        this.audio = null;
     }
     
     public void run(){
         reproducir();
     }
     public void reproducir(){
+        if(audio!=null)
+            audio.stop();
         try{
-            Clip audio = AudioSystem.getClip();
+            audio = AudioSystem.getClip();
             audio.open(AudioSystem.getAudioInputStream(new File(audioPath)));
-            while(true)
-                audio.start();
-        }catch(Exception ex){
-        
+            audio.start();
+        }catch(Exception ex){ 
         }
+    }
+    
+    public Clip getAudio(){
+        return audio;
     }
 }

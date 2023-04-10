@@ -1,7 +1,6 @@
 
 package Mapas;
 
-import LogicaPersonajes.GameCharacter;
 import javax.swing.ImageIcon;
 
 public class Mapa {
@@ -20,6 +19,8 @@ public class Mapa {
     public Mapa siguiente;
     public int xLampara;
     public int yLampara;
+    public int yPosima;
+    public String audio;
     
     
 }

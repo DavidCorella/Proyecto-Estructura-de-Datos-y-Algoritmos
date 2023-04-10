@@ -25,6 +25,7 @@ public class jFrmVentana extends javax.swing.JFrame {
     private int walk;
     private int attack;
     private int idle;
+    private Sonido audio;
 
     public jFrmVentana() {
         lampara = new Lamp();
@@ -47,6 +48,7 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbLife = new javax.swing.JProgressBar();
         jPrbEnemy = new javax.swing.JProgressBar();
         jPrbEnemy2 = new javax.swing.JProgressBar();
+        jLblPosima = new javax.swing.JLabel();
         jLblLampara = new javax.swing.JLabel();
         jLblFondo = new javax.swing.JLabel();
 
@@ -85,6 +87,8 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbEnemy2.setValue(100);
         getContentPane().add(jPrbEnemy2);
         jPrbEnemy2.setBounds(20, 80, 90, 20);
+        getContentPane().add(jLblPosima);
+        jLblPosima.setBounds(320, 150, 0, 0);
         getContentPane().add(jLblLampara);
         jLblLampara.setBounds(200, 200, 0, 0);
         getContentPane().add(jLblFondo);
@@ -95,29 +99,42 @@ public class jFrmVentana extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         char key = evt.getKeyChar();
-        if((key == 'X' || key == 'x')&&(jLblLampara.getX()-15<principal.getPositionX()&&jLblLampara.getX()+15>principal.getPositionX())){
-            principal.setLife0(100);
-            useMap(actualMap);
-            menuViajes();
-        }else{
+        if ((key == 'X' || key == 'x')) {
+            if (jLblLampara.getX() - 15 < principal.getPositionX() && jLblLampara.getX() + 15 > principal.getPositionX()) {
+                principal.setLife0(100);
+                useMap(actualMap);
+                menuViajes();
+            } else {
+                if (jLblPosima.getX() - 90 < principal.getPositionX() && jLblPosima.getX() - 40 > principal.getPositionX()) {
+                    jLblPosima.setLocation(0, -500);
+                    if (principal.getLife() + 50 > 100) {
+                        principal.setLife0(100);
+                    } else {
+                        principal.setLife(50);
+                    }
+                }
+            }
+        } else {
             boolean action = principal.getisAction().compareTo("Attacking") == 0 || principal.getisAction().compareTo("isJumping") == 0;
             principalThread = new PrincipalThread(principal, enemy, enemy2, 5, 17, 11, 11, !action ? key : ' ', actualMap);
             principalThread.start();
-       }
+        }
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         char key = evt.getKeyChar();
-        boolean action = principal.getisAction().compareTo("Attacking") == 0 || principal.getisAction().compareTo("isJumping") == 0;
-        principalThread = new PrincipalThread(principal, enemy, enemy2, 5, 17, 11, 11, !action ? '~' : ' ');
-        principalThread.start();
-        if (enemy.getisAction().compareTo("Idle") == 0 && enemy.getLife() > 0) {
-            enemyThread = new EnemyThread(enemy, principal, 0, walk, attack, idle);
-            enemyThread.start();
-        }
-        if (enemy2.getisAction().compareTo("Idle") == 0 && enemy2.getLife() > 0) {
-            enemyThread2 = new EnemyThread(enemy2, principal, 0, walk, attack, idle);
-            enemyThread2.start();
+        if (key != 'x' && key != 'X') {
+            boolean action = principal.getisAction().compareTo("Attacking") == 0 || principal.getisAction().compareTo("isJumping") == 0;
+            principalThread = new PrincipalThread(principal, enemy, enemy2, 5, 17, 11, 11, !action ? '~' : ' ');
+            principalThread.start();
+            if (enemy.getisAction().compareTo("Idle") == 0 && enemy.getLife() > 0) {
+                enemyThread = new EnemyThread(enemy, principal, 0, walk, attack, idle);
+                enemyThread.start();
+            }
+            if (enemy2.getisAction().compareTo("Idle") == 0 && enemy2.getLife() > 0) {
+                enemyThread2 = new EnemyThread(enemy2, principal, 0, walk, attack, idle);
+                enemyThread2.start();
+            }
         }
     }//GEN-LAST:event_formKeyReleased
 
@@ -125,7 +142,7 @@ public class jFrmVentana extends javax.swing.JFrame {
         jLblMainCharacter.setIcon(principal.getIcon());
         jLblMainCharacter.setLocation(principal.getPositionX(), principal.getPositionY());     // Actualizacion del label del principal
         SwingUtilities.updateComponentTreeUI(this);
-        if(principal.getPositionX()>1350){
+        if (principal.getPositionX() > 1350) {
             actualMap = actualMap + 1;
             useMap(actualMap);
         }
@@ -163,16 +180,16 @@ public class jFrmVentana extends javax.swing.JFrame {
 
     private void loadMaps() {
         ImageIcon fondo = new ImageIcon(".\\src\\Fondos\\Fondo0.png");
-        mapa.insertMapa(0, 1100, 350, -500, 146, -500, 146, 0, -500, "", fondo, 1100, 250);
+        mapa.insertMapa(0, 1100, 350, -500, 146, -500, 146, 0, -500, "", fondo, 1100, 250, ".\\src\\Audio\\SoundTrack0.wav", -500);
         fondo = new ImageIcon(".\\src\\Fondos\\Fondo1.png");
-        mapa.insertMapa(1, 60, 154, 500, 146, 1000, 146, -0, -500, "", fondo, 100, 60);
-        mapa.insertMapa(2, 60, 154, -500, -50, -500, -50, 136, 1000, "Boss1", fondo, 100, 60);
+        mapa.insertMapa(1, 60, 154, 500, 146, 1000, 146, -0, -500, "", fondo, 100, 60, ".\\src\\Audio\\SoundTrack0.wav", 190);
+        mapa.insertMapa(2, 60, 154, -500, -50, -500, -50, 136, 1000, "Boss1", fondo, 100, 60, ".\\src\\Audio\\SoundTrack1.wav", -500);
         fondo = new ImageIcon(".\\src\\Fondos\\Fondo2.png");
-        mapa.insertMapa(3, 100, 310, 500, 310, 1000, 310, -0, -500, "", fondo, 100, 210);
-        mapa.insertMapa(4, 100, 310, -500, -50, -500, -50, 310, 1000, "Boss2", fondo, 100, 210);
+        mapa.insertMapa(3, 100, 310, 500, 310, 1000, 310, -0, -500, "", fondo, 100, 210, ".\\src\\Audio\\SoundTrack0.wav", 350);
+        mapa.insertMapa(4, 100, 310, -500, -50, -500, -50, 310, 1000, "Boss2", fondo, 100, 210, ".\\src\\Audio\\SoundTrack2.wav", -500);
         fondo = new ImageIcon(".\\src\\Fondos\\Fondo3.png");
-        mapa.insertMapa(5, 100, 360, 500, 360, 1000, 360, -0, -500, "", fondo, 100, 270);
-        mapa.insertMapa(6, 100, 360, -500, -50, -500, -50, 360, 1000, "Boss3", fondo, 100, 270);
+        mapa.insertMapa(5, 100, 360, 500, 360, 1000, 360, -0, -500, "", fondo, 100, 270, ".\\src\\Audio\\SoundTrack0.wav", 400);
+        mapa.insertMapa(6, 100, 360, -500, -50, -500, -50, 360, 1000, "Boss3", fondo, 100, 270, ".\\src\\Audio\\SoundTrack3.wav", -500);
     }
 
     private void useMap(int typeMap) {
@@ -182,12 +199,16 @@ public class jFrmVentana extends javax.swing.JFrame {
         principal.setisAction("Idle");
         principalThread = new PrincipalThread(principal, enemy, enemy2, 5, 17, 11, 11, '~');
         principalThread.start();
-        
+
         enemy = new GameCharacter(mapa.getXEnemy1(typeMap), mapa.getYEnemy1(typeMap), 180, 120, "Enemy");
         jLblEnemy.setBounds(enemy.getPositionX(), enemy.getPositionY(), enemy.getWidth(), enemy.getHeight());
         jLblEnemy.setIcon(enemy.getIcon());
         enemy.setisAction("Idlee");
-        
+
+        jLblPosima.setSize(50, 40);
+        jLblPosima.setLocation(750, mapa.getyPosima(typeMap));
+        jLblPosima.setIcon(new ImageIcon(new ImageIcon(".//src//Imagenes//Posima.png").getImage().getScaledInstance(50, 40, Image.SCALE_SMOOTH)));
+
         switch (typeMap) {
             case 0:
             case 1:
@@ -205,7 +226,7 @@ public class jFrmVentana extends javax.swing.JFrame {
                 enemy2 = new GameCharacter(mapa.getXBoss(typeMap), mapa.getYBoss(typeMap), 180, 120, mapa.getBossType(typeMap));
                 jLblEnemy2.setBounds(enemy2.getPositionX(), enemy2.getPositionY(), enemy2.getWidth(), enemy2.getHeight());
                 jLblEnemy2.setIcon(enemy2.getIcon());
-                enemy2.setisAction("Idlee"); 
+                enemy2.setisAction("Idlee");
                 break;
         }
         switch (enemy2.getType()) {
@@ -224,15 +245,18 @@ public class jFrmVentana extends javax.swing.JFrame {
                 attack = 11;
                 idle = 17;
         }
-        Sonido audio = new Sonido(".\\src\\Audio\\Bloodborne.wav");
+        if (audio != null) {
+            audio.getAudio().stop();
+        }
+        audio = new Sonido(mapa.getAudio(typeMap));
         audio.start();
-        
+
         enemyThread = new EnemyThread(enemy, principal, 0, 23, 11, 17);
         enemyThread.start();
-        
+
         enemyThread2 = new EnemyThread(enemy2, principal, 0, walk, attack, idle);
         enemyThread2.start();
-        
+
         jLblFondo.setLocation(0, 0);
         jLblFondo.setSize(1500, 500);
         ImageIcon fondo = mapa.getFondo(typeMap);
@@ -245,18 +269,23 @@ public class jFrmVentana extends javax.swing.JFrame {
     }
 
     private void menuViajes() {
-        
-        if(actualMap == 2 && lampara.getLampState2().compareTo("Off")==0)
+
+        if (actualMap == 2 && lampara.getLampState2().compareTo("Off") == 0) {
             lampara.setLampState2("On");
-        if(actualMap == 3 && lampara.getLampState3().compareTo("Off")==0)
+        }
+        if (actualMap == 3 && lampara.getLampState3().compareTo("Off") == 0) {
             lampara.setLampState3("On");
-        if(actualMap == 4 && lampara.getLampState4().compareTo("Off")==0)
+        }
+        if (actualMap == 4 && lampara.getLampState4().compareTo("Off") == 0) {
             lampara.setLampState4("On");
-        if(actualMap == 5 && lampara.getLampState5().compareTo("Off")==0)
+        }
+        if (actualMap == 5 && lampara.getLampState5().compareTo("Off") == 0) {
             lampara.setLampState5("On");
-        if(actualMap == 6 && lampara.getLampState6().compareTo("Off")==0)
+        }
+        if (actualMap == 6 && lampara.getLampState6().compareTo("Off") == 0) {
             lampara.setLampState6("On");
-        
+        }
+
         int lugar = JOptionPane.showOptionDialog(
                 null,
                 "A donde quieres viajar?",
@@ -264,35 +293,35 @@ public class jFrmVentana extends javax.swing.JFrame {
                 0,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
-                new Object[]{"Mapa 0", "Mapa 1", "Mapa 2","Mapa 3", "Mapa 4", "Mapa 5", "Mapa 6"},
+                new Object[]{"Mapa 0", "Mapa 1", "Mapa 2", "Mapa 3", "Mapa 4", "Mapa 5", "Mapa 6"},
                 "opcion 1");
 
         if (lugar != -1) {
-            if(lugar == 0 && lampara.getLampState0().compareTo("On")==0){
+            if (lugar == 0 && lampara.getLampState0().compareTo("On") == 0) {
                 actualMap = 0;
                 useMap(actualMap);
-            }else{
-                if(lugar == 1 && lampara.getLampState1().compareTo("On")==0){
+            } else {
+                if (lugar == 1 && lampara.getLampState1().compareTo("On") == 0) {
                     actualMap = 1;
                     useMap(actualMap);
-                }else{
-                    if(lugar == 2 && lampara.getLampState2().compareTo("On")==0){
+                } else {
+                    if (lugar == 2 && lampara.getLampState2().compareTo("On") == 0) {
                         actualMap = 2;
                         useMap(actualMap);
-                    }else{
-                        if(lugar == 3 && lampara.getLampState3().compareTo("On")==0){
+                    } else {
+                        if (lugar == 3 && lampara.getLampState3().compareTo("On") == 0) {
                             actualMap = 3;
                             useMap(actualMap);
-                        }else{
-                            if(lugar == 4 && lampara.getLampState4().compareTo("On")==0){
+                        } else {
+                            if (lugar == 4 && lampara.getLampState4().compareTo("On") == 0) {
                                 actualMap = 4;
                                 useMap(actualMap);
-                            }else{
-                                if(lugar == 5 && lampara.getLampState5().compareTo("On")==0){
+                            } else {
+                                if (lugar == 5 && lampara.getLampState5().compareTo("On") == 0) {
                                     actualMap = 5;
                                     useMap(actualMap);
-                                }else{
-                                    if(lugar == 6 && lampara.getLampState6().compareTo("On")==0){
+                                } else {
+                                    if (lugar == 6 && lampara.getLampState6().compareTo("On") == 0) {
                                         actualMap = 6;
                                         useMap(actualMap);
                                     }
@@ -312,6 +341,7 @@ public class jFrmVentana extends javax.swing.JFrame {
     private javax.swing.JLabel jLblFondo;
     private javax.swing.JLabel jLblLampara;
     private javax.swing.JLabel jLblMainCharacter;
+    private javax.swing.JLabel jLblPosima;
     private javax.swing.JProgressBar jPrbEnemy;
     private javax.swing.JProgressBar jPrbEnemy2;
     private javax.swing.JProgressBar jPrbLife;
