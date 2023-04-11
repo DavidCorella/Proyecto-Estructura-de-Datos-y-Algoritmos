@@ -1,6 +1,6 @@
-package appproyecto;
+//Hilo que se usa para sumar Stamina cada 0.5s.
 
-import LogicaPersonajes.GameCharacter;
+package LogicaPersonajes;
 
 public class Stamina extends Thread {
 
@@ -13,19 +13,11 @@ public class Stamina extends Thread {
     }
 
     public void run() {
-        sumar();
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public void sumar() {
-        while (estado) {
+        while (estado) {                                      // Se usa una variable de control, ya que los personajes cambian de direccion de memoria segun el mapa.
             if (principal.getStamina() < 100) {
-                if(5+principal.getStamina()>100){
+                if (5 + principal.getStamina() > 100) {       //Si la Stamina es menor de 100 se suma 5.
                     principal.setStamina0(100);
-                }else{
+                } else {
                     principal.setStamina(5);
                 }
             }
@@ -34,5 +26,9 @@ public class Stamina extends Thread {
             } catch (InterruptedException ex) {
             }
         }
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

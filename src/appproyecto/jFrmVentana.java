@@ -1,7 +1,11 @@
 /*Esta es la interfaz grafica del juego*/
-//Esto es un comentario
 package appproyecto;
 
+import LogicaObjetos.Lamp;
+import LogicaPersonajes.Stamina;
+import Audio.Sonido;
+import LogicaPersonajes.EnemyThread;
+import LogicaPersonajes.PrincipalThread;
 import LogicaPersonajes.GameCharacter;
 import LogicaImagenes.ImageFunctions;
 import Mapas.FuncionesMapa;
@@ -27,7 +31,7 @@ public class jFrmVentana extends javax.swing.JFrame {
     private int idle;
     private Sonido audio;
     private Stamina stamina;
-    
+
     public jFrmVentana() {
         lampara = new Lamp();
         initComponents();
@@ -169,7 +173,7 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbStamina.setValue(principal.getStamina());
         jPrbEnemy.setValue(enemy.getLife());
         jPrbEnemy2.setValue(enemy2.getLife());
-        jPrbLife.setValue(principal.getLife());                                                  //Actualizacion de las barras de vida.
+        jPrbLife.setValue(principal.getLife());                                                  //Actualizacion de las barras de vida y stamina.
         jPrbEnemy.setLocation(enemy.getPositionX() + 40, enemy.getPositionY() - 20);
         if (enemy2.getType().compareTo("Boss1") == 0 || enemy2.getType().compareTo("Boss2") == 0) {
             jPrbEnemy2.setSize(500, 20);
@@ -201,12 +205,12 @@ public class jFrmVentana extends javax.swing.JFrame {
     private void useMap(int typeMap) {
         int life = 0;
         int aStamina = 0;
-        if(principal!=null){
+        if (principal != null) {
             life = principal.getLife();
             aStamina = principal.getStamina();
         }
         principal = new GameCharacter(mapa.getXPrincipal(typeMap), mapa.getYPrincipal(typeMap), 180, 120, "Principal");
-        if(life!=0){
+        if (life != 0) {
             principal.setLife0(life);
             principal.setStamina0(aStamina);
         }
@@ -271,7 +275,7 @@ public class jFrmVentana extends javax.swing.JFrame {
         }
         audio = new Sonido(mapa.getAudio(typeMap));
         audio.start();
-        
+
         enemyThread = new EnemyThread(enemy, principal, 0, 23, 11, 17);
         enemyThread.start();
 
@@ -286,8 +290,9 @@ public class jFrmVentana extends javax.swing.JFrame {
         jLblLampara.setIcon(lampara.lampState(typeMap));
         jLblLampara.setLocation(mapa.getxLampara(typeMap), mapa.getyLampara(typeMap));
         jLblLampara.setSize(200, 200);
-        if(stamina!=null)
+        if (stamina != null) {
             stamina.setEstado(false);
+        }
         stamina = new Stamina(principal);
         stamina.start();
 

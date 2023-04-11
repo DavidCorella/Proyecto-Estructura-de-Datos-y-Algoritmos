@@ -1,11 +1,12 @@
+//Clase del objeto de la lampara, almacena cual lampara ha sido encendida.
 
-package appproyecto;
+package LogicaObjetos;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Lamp {
-    
+
     private String lampState1;
     private String lampState2;
     private String lampState3;
@@ -14,8 +15,8 @@ public class Lamp {
     private String lampState6;
     private String lampState0;
     private ImageIcon imag;
-    
-    public Lamp(){
+
+    public Lamp() {
         lampState0 = "On";
         lampState1 = "On";
         lampState2 = "Off";
@@ -85,9 +86,9 @@ public class Lamp {
         return imag;
     }
 
-    public ImageIcon lampState(int mapa){
+    public ImageIcon lampState(int mapa) {
         String lamp = "";
-        switch(mapa){
+        switch (mapa) {
             case 0:
                 lamp = lampState0;
                 break;
@@ -111,13 +112,13 @@ public class Lamp {
                 break;
         }
         Image preImag = null;
-        if(lamp.compareTo("On")==0){
+        if (lamp.compareTo("On") == 0) {
             preImag = new ImageIcon(".\\src\\Imagenes\\LamparaOn.png").getImage();
-        }else{
+        } else {
             preImag = new ImageIcon(".\\src\\Imagenes\\LamparaOff.png").getImage();
         }
         imag = new ImageIcon(preImag.getScaledInstance(200, 200, Image.SCALE_SMOOTH));
         return imag;
     }
-    
+
 }

@@ -1,6 +1,6 @@
+//Funciones de Lista para guardar datos de cada mapa
 package Mapas;
 
-import appproyecto.Sonido;
 import javax.swing.ImageIcon;
 
 public class FuncionesMapa {
@@ -220,17 +220,16 @@ public class FuncionesMapa {
         }
         return y;
     }
-    
-    public String getAudio(int mapa){
+
+    public String getAudio(int mapa) {
         String audio = "";
         Mapa aux = nodo;
-        while(aux != null){
-            if(aux.numeroMapa == mapa){
+        while (aux != null) {
+            if (aux.numeroMapa == mapa) {
                 audio = aux.audio;
                 break;
-            }
-            else{
-            aux = aux.siguiente;
+            } else {
+                aux = aux.siguiente;
             }
         }
         return audio;

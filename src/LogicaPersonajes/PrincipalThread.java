@@ -1,10 +1,9 @@
 /*  Este es el hilo del persoaje principal
     Donde se ejecutan las acciones de atacar y/o saltar
  */
-package appproyecto;
+package LogicaPersonajes;
 
 import java.awt.Rectangle;
-import LogicaPersonajes.GameCharacter;
 
 public class PrincipalThread extends Thread {
 
@@ -18,9 +17,9 @@ public class PrincipalThread extends Thread {
     private GameCharacter enemy2;
     private int mapa;
 
-    public PrincipalThread(GameCharacter principal, GameCharacter enemy, GameCharacter enemy2, int sequenceJump, int sequenceWalk, int sequenceAttack, int sequenceIdle, char key, int mapa) {  // Se piden los mismos objetos de personaje y enemigo que ha usado el mismo programa.
+    public PrincipalThread(GameCharacter principal, GameCharacter enemy, GameCharacter enemy2, int sequenceJump, int sequenceWalk, int sequenceAttack, int sequenceIdle, char key, int mapa) {
         this.principal = principal;
-        this.enemy = enemy;
+        this.enemy = enemy;                                       // Se piden los mismos objetos de personaje y enemigo que se estan usando el mismo programa.
         this.enemy = enemy;
         this.principal = principal;
         this.sequenceAttack = sequenceAttack;
@@ -32,9 +31,9 @@ public class PrincipalThread extends Thread {
         this.mapa = mapa;
     }
 
-    public PrincipalThread(GameCharacter principal, GameCharacter enemy, GameCharacter enemy2, int sequenceJump, int sequenceWalk, int sequenceAttack, int sequenceIdle, char key) {  // Se piden los mismos objetos de personaje y enemigo que ha usado el mismo programa.
+    public PrincipalThread(GameCharacter principal, GameCharacter enemy, GameCharacter enemy2, int sequenceJump, int sequenceWalk, int sequenceAttack, int sequenceIdle, char key) {
         this.principal = principal;
-        this.enemy = enemy;
+        this.enemy = enemy;                             //Se sobrecarga el constructor ya que no siempre se necesita el dato del mapa.
         this.enemy = enemy;
         this.principal = principal;
         this.sequenceAttack = sequenceAttack;
@@ -46,8 +45,9 @@ public class PrincipalThread extends Thread {
     }
 
     public void run() {
-        if(principal.getisAction().compareTo("Dying")!=0)
+        if (principal.getisAction().compareTo("Dying") != 0) {
             executeAction();
+        }
     }
 
     public void executeAction() {
@@ -73,12 +73,12 @@ public class PrincipalThread extends Thread {
                         principal.setisAction("Attacking");
                         principal.attacking(sequenceAttack);
                         principal.setStamina(-20);
-                        if (new Rectangle(enemy.getPositionX(), enemy.getPositionY(), enemy.getWidth() - 90, enemy.getHeight() - 90).intersects( // Si los 2 objetos o el area de los objetos se interseca
+                        if (new Rectangle(enemy.getPositionX(), enemy.getPositionY(), enemy.getWidth() - 90, enemy.getHeight() - 90).intersects(
                                 principal.getPositionX(), principal.getPositionY(), principal.getWidth() - 90, principal.getHeight() - 90)) {
-                            enemy.setLife(-20);
+                            enemy.setLife(-20);                         // Si los 2 objetos o el area de los objetos se interseca
                             principal.setLife(2);
                         }
-                        if (new Rectangle(enemy2.getPositionX(), enemy2.getPositionY(), enemy2.getWidth() - 90, enemy2.getHeight() - 90).intersects( // Si los 2 objetos o el area de los objetos se interseca
+                        if (new Rectangle(enemy2.getPositionX(), enemy2.getPositionY(), enemy2.getWidth() - 90, enemy2.getHeight() - 90).intersects(
                                 principal.getPositionX(), principal.getPositionY(), principal.getWidth() - 90, principal.getHeight() - 90)) {
                             enemy2.setLife(-20);
                             principal.setLife(2);

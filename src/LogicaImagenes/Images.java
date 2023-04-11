@@ -1,4 +1,4 @@
-/* Esta clase se encarga de traer la imagenes desde la carpeta hasta el programa*/
+// Esta clase sabe donde estan todas la direcciones de la imagenes que se ocupan.
 package LogicaImagenes;
 
 import javax.swing.ImageIcon;
