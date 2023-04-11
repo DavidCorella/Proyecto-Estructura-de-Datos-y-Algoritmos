@@ -30,8 +30,7 @@ public class EnemyThread extends Thread {
     }
 
     public void executeAction(int sequenceJump, int sequenceWalk, int sequnceAttack, int sequenceIdle) {
-        if (enemy.getisAction().compareTo("Dying") != 0) {
-            if (enemy.getisAction().compareTo("Dying") != 0) {
+            if (enemy.getLife() > 0) {
                 while (principal.getPositionX() - 250 < enemy.getPositionX() && principal.getPositionX() - 30 > enemy.getPositionX() && enemy.getLife() > 0) {    //Si el personaje se encuentra a 250px el enemigo camina para llegar
                     enemy.setisAction("Walking");                                                                     //a el hasta que se acerque 30px antes
                     enemy.moveRigth(sequenceWalk);
@@ -52,7 +51,7 @@ public class EnemyThread extends Thread {
                     enemy.setisAction("Attacking");                                                                //Ataca
                     try {
                         Thread.sleep(200);
-                        if (enemy.getType().compareTo("Boss2") == 0) {
+                        if (enemy.getType().compareTo("Boss2") == 0 || enemy.getType().compareTo("Boss3")==0) {
                             if (enemy.getLife() < 50) {
                                 enemy.attacking(sequnceAttack, "Attacking2");
                             } else {
@@ -81,5 +80,5 @@ public class EnemyThread extends Thread {
                 }
             }
         }
-    }
+    
 }

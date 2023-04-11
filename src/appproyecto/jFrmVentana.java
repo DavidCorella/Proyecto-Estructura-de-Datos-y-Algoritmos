@@ -195,7 +195,7 @@ public class jFrmVentana extends javax.swing.JFrame {
         mapa.insertMapa(4, 100, 310, -500, -50, -500, -50, 310, 1000, "Boss2", fondo, 100, 210, ".\\src\\Audio\\SoundTrack2.wav", -500);
         fondo = new ImageIcon(".\\src\\Fondos\\Fondo3.png");
         mapa.insertMapa(5, 100, 360, 500, 360, 1000, 360, -0, -500, "", fondo, 100, 270, ".\\src\\Audio\\SoundTrack0.wav", 400);
-        mapa.insertMapa(6, 100, 360, -500, -50, -500, -50, 360, 1000, "Boss3", fondo, 100, 270, ".\\src\\Audio\\SoundTrack3.wav", -500);
+        mapa.insertMapa(6, 100, 360, -500, -50, -500, -50, 355, 1000, "Boss3", fondo, 100, 270, ".\\src\\Audio\\SoundTrack3.wav", -500);
     }
 
     private void useMap(int typeMap) {
@@ -260,17 +260,17 @@ public class jFrmVentana extends javax.swing.JFrame {
                 walk = 23;
                 attack = 11;
                 idle = 17;
+                break;
+            case "Boss3":
+                walk = 23;
+                attack = 11;
+                idle = 17;
         }
         if (audio != null) {
             audio.getAudio().stop();
         }
         audio = new Sonido(mapa.getAudio(typeMap));
         audio.start();
-
-        if(stamina!=null)
-            stamina.setEstado(false);
-        stamina = new Stamina(principal);
-        stamina.start();
         
         enemyThread = new EnemyThread(enemy, principal, 0, 23, 11, 17);
         enemyThread.start();
@@ -286,7 +286,10 @@ public class jFrmVentana extends javax.swing.JFrame {
         jLblLampara.setIcon(lampara.lampState(typeMap));
         jLblLampara.setLocation(mapa.getxLampara(typeMap), mapa.getyLampara(typeMap));
         jLblLampara.setSize(200, 200);
-
+        if(stamina!=null)
+            stamina.setEstado(false);
+        stamina = new Stamina(principal);
+        stamina.start();
 
     }
 
