@@ -26,15 +26,17 @@ public class jFrmVentana extends javax.swing.JFrame {
     private int attack;
     private int idle;
     private Sonido audio;
-
+    private Stamina stamina;
+    
     public jFrmVentana() {
         lampara = new Lamp();
         initComponents();
         actualMap = 0;
         mapa = new FuncionesMapa();
         loadMaps();
+        stamina = null;
         useMap(actualMap);
-        JOptionPane.showMessageDialog(null, "Use w para saltar\nUse d para caminar a la derecha\nUse a para caminar a la izquierda\nUse x para seleccionar objetos", "Instrucciones", HEIGHT);
+        JOptionPane.showMessageDialog(null, "Use \"W\" para saltar\nUse \"D\" para caminar a la derecha\nUse \"A\" para caminar a la izquierda\nUse \"X\" para seleccionar objetos\nUse \"F\" para atcar", "Instrucciones", HEIGHT);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +51,7 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbEnemy = new javax.swing.JProgressBar();
         jPrbEnemy2 = new javax.swing.JProgressBar();
         jLblPosima = new javax.swing.JLabel();
+        jPrbStamina = new javax.swing.JProgressBar();
         jLblLampara = new javax.swing.JLabel();
         jLblFondo = new javax.swing.JLabel();
 
@@ -89,6 +92,8 @@ public class jFrmVentana extends javax.swing.JFrame {
         jPrbEnemy2.setBounds(20, 80, 90, 20);
         getContentPane().add(jLblPosima);
         jLblPosima.setBounds(320, 150, 0, 0);
+        getContentPane().add(jPrbStamina);
+        jPrbStamina.setBounds(20, 40, 100, 20);
         getContentPane().add(jLblLampara);
         jLblLampara.setBounds(200, 200, 0, 0);
         getContentPane().add(jLblFondo);
@@ -161,6 +166,7 @@ public class jFrmVentana extends javax.swing.JFrame {
     }
 
     public void setLifeBar() {
+        jPrbStamina.setValue(principal.getStamina());
         jPrbEnemy.setValue(enemy.getLife());
         jPrbEnemy2.setValue(enemy2.getLife());
         jPrbLife.setValue(principal.getLife());                                                  //Actualizacion de las barras de vida.
@@ -193,7 +199,17 @@ public class jFrmVentana extends javax.swing.JFrame {
     }
 
     private void useMap(int typeMap) {
+        int life = 0;
+        int aStamina = 0;
+        if(principal!=null){
+            life = principal.getLife();
+            aStamina = principal.getStamina();
+        }
         principal = new GameCharacter(mapa.getXPrincipal(typeMap), mapa.getYPrincipal(typeMap), 180, 120, "Principal");
+        if(life!=0){
+            principal.setLife0(life);
+            principal.setStamina0(aStamina);
+        }
         jLblMainCharacter.setBounds(principal.getPositionX(), principal.getPositionY(), principal.getWidth(), principal.getHeight());
         jLblMainCharacter.setIcon(principal.getIcon());
         principal.setisAction("Idle");
@@ -251,6 +267,11 @@ public class jFrmVentana extends javax.swing.JFrame {
         audio = new Sonido(mapa.getAudio(typeMap));
         audio.start();
 
+        if(stamina!=null)
+            stamina.setEstado(false);
+        stamina = new Stamina(principal);
+        stamina.start();
+        
         enemyThread = new EnemyThread(enemy, principal, 0, 23, 11, 17);
         enemyThread.start();
 
@@ -265,6 +286,7 @@ public class jFrmVentana extends javax.swing.JFrame {
         jLblLampara.setIcon(lampara.lampState(typeMap));
         jLblLampara.setLocation(mapa.getxLampara(typeMap), mapa.getyLampara(typeMap));
         jLblLampara.setSize(200, 200);
+
 
     }
 
@@ -345,5 +367,6 @@ public class jFrmVentana extends javax.swing.JFrame {
     private javax.swing.JProgressBar jPrbEnemy;
     private javax.swing.JProgressBar jPrbEnemy2;
     private javax.swing.JProgressBar jPrbLife;
+    private javax.swing.JProgressBar jPrbStamina;
     // End of variables declaration//GEN-END:variables
 }

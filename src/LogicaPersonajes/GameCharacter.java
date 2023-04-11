@@ -18,7 +18,7 @@ public class GameCharacter {
     private ImageFunctions image;
     private char direccion;
     private String isAction;
-    private final String type;
+    private String type;
     
     public GameCharacter(int X, int Y, int width, int height, String type){
         image = new ImageFunctions();
@@ -31,10 +31,22 @@ public class GameCharacter {
         sequence = 0;
         main_Image = image.characterImages(0, width, height,"",type);
         direccion = 'R';
-        isAction = null;
+        isAction = "Idlee";
         this.type = type;
     }
     
+    public void setType(String type){
+        this.type = type;
+    }
+    public void setStamina(int stamina){
+        this.stamina += stamina;
+    }
+    public void setStamina0(int stamina){
+        this.stamina = stamina;
+    }
+    public int getStamina(){
+        return stamina;
+    }
     public String getType(){
         return type;
     }
