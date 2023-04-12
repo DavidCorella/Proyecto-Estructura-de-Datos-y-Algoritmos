@@ -77,22 +77,23 @@ public class PrincipalThread extends Thread {
                                 principal.getPositionX(), principal.getPositionY(), principal.getWidth() - 90, principal.getHeight() - 90)) {
                             enemy.setLife(-20);                         // Si los 2 objetos o el area de los objetos se interseca
                             principal.setLife(2);
+                            if (enemy.getLife() < 1 && enemy.getPositionX() != -500) {
+                                enemy.setisAction("Dying");
+                                enemy.dying(14);
+                                enemy.setPositionX(-500);
+                            }
                         }
                         if (new Rectangle(enemy2.getPositionX(), enemy2.getPositionY(), enemy2.getWidth() - 90, enemy2.getHeight() - 90).intersects(
                                 principal.getPositionX(), principal.getPositionY(), principal.getWidth() - 90, principal.getHeight() - 90)) {
                             enemy2.setLife(-20);
                             principal.setLife(2);
+                            if (enemy2.getLife() < 1 && enemy2.getPositionX() != -500) {
+                                enemy2.setisAction("Dying");
+                                enemy2.dying(14);
+                                enemy2.setPositionX(-500);
+                            }
                         }
-                        if (enemy.getLife() < 1 && enemy.getPositionX() != -500) {
-                            enemy.setisAction("Dying");
-                            enemy.dying(14);
-                            enemy.setPositionX(-500);
-                        }
-                        if (enemy2.getLife() < 1 && enemy2.getPositionX() != -500) {
-                            enemy2.setisAction("Dying");
-                            enemy2.dying(14);
-                            enemy2.setPositionX(-500);
-                        }
+
                         principal.setisAction("Idle");
                         principal.idle(sequenceIdle);
                     }

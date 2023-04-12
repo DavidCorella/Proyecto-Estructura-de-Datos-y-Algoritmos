@@ -29,10 +29,13 @@ public class jFrmVentana extends javax.swing.JFrame {
     private int walk;
     private int attack;
     private int idle;
+    private int muertes;
     private Sonido audio;
     private Stamina stamina;
-
+    private FuncionesPartidas partidasJugadas;
     public jFrmVentana() {
+        muertes = 0;
+        partidasJugadas = new FuncionesPartidas();
         lampara = new Lamp();
         initComponents();
         actualMap = 0;
@@ -170,10 +173,10 @@ public class jFrmVentana extends javax.swing.JFrame {
     }
 
     public void setLifeBar() {
-        jPrbStamina.setValue(principal.getStamina());
-        jPrbEnemy.setValue(enemy.getLife());
-        jPrbEnemy2.setValue(enemy2.getLife());
-        jPrbLife.setValue(principal.getLife());                                                  //Actualizacion de las barras de vida y stamina.
+        jPrbStamina.setValue(principal.getStamina()>-1?principal.getStamina():1);
+        jPrbEnemy.setValue(enemy.getLife()>-1?enemy.getLife():1);
+        jPrbEnemy2.setValue(enemy2.getLife()>-1?enemy2.getLife():1);
+        jPrbLife.setValue(principal.getLife()>-1?principal.getLife():1);                                                 //Actualizacion de las barras de vida y stamina.
         jPrbEnemy.setLocation(enemy.getPositionX() + 40, enemy.getPositionY() - 20);
         if (enemy2.getType().compareTo("Boss1") == 0 || enemy2.getType().compareTo("Boss2") == 0) {
             jPrbEnemy2.setSize(500, 20);
@@ -183,8 +186,16 @@ public class jFrmVentana extends javax.swing.JFrame {
             jPrbEnemy2.setLocation(enemy2.getPositionX() + 40, enemy2.getPositionY() - 20);
         }
         if (principal.getisAction().compareTo("Dying") == 0) {
+            muertes++;
+            principal.setLife0(100);
+            principal.setStamina0(100);
             useMap(0);
             JOptionPane.showMessageDialog(null, "YOU DIE");
+        }
+        if(enemy2.getType().compareTo("Boss3")==0&&enemy2.getisAction().compareTo("Dying")==0){
+            partidasJugadas.insertarPartida(muertes,partidasJugadas.getNodo()==null?1:partidasJugadas.getNodoInicioPartida()+1);
+            menuContinuar();
+            
         }
     }
 
@@ -362,6 +373,37 @@ public class jFrmVentana extends javax.swing.JFrame {
                 }
             }
         }
+    }
+    
+    private void menuContinuar(){
+        int option = JOptionPane.showOptionDialog(
+                null,
+                "Desea Jugar otra vez?",
+                "Continuar",
+                0,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                new Object[]{"Si","No"},
+                "opcion 1");
+
+        if (option != -1) {
+            if (option == 0) {
+                muertes = 0;
+                lampara = new Lamp();
+                actualMap = 0;
+                mapa = new FuncionesMapa();
+                loadMaps();
+                stamina = null;
+                principal.setLife0(100);
+                principal.setStamina0(100);
+                useMap(actualMap);
+            } else {
+                partidasJugadas.ordenarLista();
+                JOptionPane.showMessageDialog(null, partidasJugadas.toString());
+                System.exit(0);
+            }
+            
+            }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
