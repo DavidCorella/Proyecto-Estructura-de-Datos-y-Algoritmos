@@ -185,7 +185,7 @@ public class jFrmVentana extends javax.swing.JFrame {
             jPrbEnemy2.setSize(90, 20);
             jPrbEnemy2.setLocation(enemy2.getPositionX() + 40, enemy2.getPositionY() - 20);
         }
-        if (principal.getisAction().compareTo("Dying") == 0) {
+        if (principal.getLife()<1) {
             muertes++;
             principal.setLife0(100);
             principal.setStamina0(100);
